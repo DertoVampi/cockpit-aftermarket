@@ -19,10 +19,11 @@ def get_data(get_url, parquet_output):
             file.write(response.content)
     else:
         print("La richiesta non è andata a buon fine.")
+        return None
     df = pd.read_csv("temp_csv.csv")
-    os.remove("temp_csv.csv")
-    df = df.dropna(axis=1, how="all")
-    columns_to_keep = ["OBS_VALUE", "TIME_PERIOD", "DATAFLOW", "CLASSE_ETA"]
+    # os.remove("temp_csv.csv")
+    # df = df.dropna(axis=1, how="all")
+    columns_to_keep = ["OBS_VALUE", "TIME_PERIOD", "DATAFLOW", "CLASSE_ETA", "FREQ", "EDI"]
     for column in df.columns:
         if column not in columns_to_keep:
             df = df.drop(columns=column)
@@ -30,16 +31,16 @@ def get_data(get_url, parquet_output):
     print(df)
     print(df.columns)
 
-url = "http://sdmx.istat.it/SDMXWS/rest/data/6_64/............/"
+url = "http://sdmx.istat.it/SDMXWS/rest/data/92_506/Q.IT.B1GQ_1.V.W.2024M12/?startPeriod=2024"
 base_url = "http://sdmx.istat.it/SDMXWS/rest/data/"
 
-url_list = [
-    "151_874/M.Y...9..2025M1G7/?startPeriod=2024",
-    ""
-    ]
+url_list = {
+    "disoccupazione":"151_874/M.Y...9..2025M1G7/?startPeriod=2024",
+    "":""
+    }
 
 
 
 # url = "http://sdmx.istat.it/SDMXWS/rest/data/151_874/M.Y...9..2025M1G7/?startPeriod=2024"
-parquet = "try_disoccupazione.parquet"
+parquet = "trial_disoccupazione.parquet"
 get_data(url, parquet)

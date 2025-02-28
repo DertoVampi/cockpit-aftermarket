@@ -1,0 +1,510 @@
+,df_id,version,df_description,df_structure_id
+0,101_1015,1.3,Crops,DCSP_COLTIVAZIONI
+1,101_1030,1.0,"PDO, PGI and TSG quality products",DCSP_DOPIGP
+2,101_1033,1.0,slaughtering,DCSP_MACELLAZIONI
+3,101_1039,1.2,Agritourism - municipalities,DCSP_AGRITURISMO_COM
+4,101_1077,1.0,"PDO, PGI and TSG products:  operators - municipalities data",DCSP_DOPIGP_COM
+5,101_12,1.1,Agricoltural prices,DCSP_PREZZIAGR
+6,101_148,1.0,Economic results of farms,DCSP_RICAREA
+7,101_22,1.2,Plant protection products,DCSP_FITOSANITARI
+8,101_959,1.0,Milk and dairy products,DCSP_LATTE
+9,101_961,1.0,Livestock,DCSP_CONSISTENZE
+10,101_962,1.0,Livestock import export,DCSP_LIVESTIMPEXP
+11,101_965,1.0,Agritourism,DCSP_AGRITURISMO
+12,102_974,1.1,Farm structure,DCSP_SPA
+13,104_466,1.2,Fertilizars,DCSP_FERTILIZZANTI
+14,111_111,1.1,Building permits  indicators,DCSC_PERM_RAP1
+15,111_263,1.5,Business confidence in the manufacturing sector,DCSC_FIDIMPRMAN
+16,111_40,1.3,Business confidence in the construction sector,DCSC_FIDIMPRCOSTR
+17,114_191,1.2,Industrial new orders and turnover index,DCSC_ORDFATT
+18,115_168,1.8,Industrial production volume,DCSP_PRODCOM
+19,115_333,1.2,Industrial production index,DCSC_INDXPRODIND_1
+20,115_362,1.2,Index of production in construction,DCSC_INDXPRODCOSTR_1
+21,117_1035,1.1,Bank services - municipalities data,DCAT_SERVBANC_COM
+22,117_1057,1.0,Rail transport,DCSC_TRAFERR
+23,117_262,1.3,Business confidence in the market services sector,DCSC_FIDIMPRSERV
+24,117_266,1.4,Business confidence in the retail trade Sector,DCSC_FIDCOMM
+25,119_367,1.3,Indexes of turnover in other services,DCSC_FATTSERVIZ_1
+26,120_337,1.3,Index of retail trade sales,DCSC_COMMDET_1
+27,121_329,1.1,Road freight carriage by category of transport,DCSC_TRAMERCIS2
+28,121_330,1.1,Road freight transport,DCSC_TRAMERCIS1
+29,121_331,1.3,Air transport,DCSC_INDTRAEREO
+30,121_393,1.2,Maritime transport,DCSC_TRAMAR
+31,122_54,1.8,Accommodation establishments,DCSC_TUR
+32,123_712,2.5,Accounts indicators and institutional units personnel indicators,DCAR_INDBILPER
+33,123_713,1.0,Number and type of institutional units,DCAR_UI
+34,123_840,1.2,Institutional units activities and organization,DCAR_INDCENS_PA
+35,124_1156,1.0,"Universities, polytechnic institutes and institutes of higher education balance sheet  (euros)",DCAR_STATPAT_UNI
+36,124_1157,1.0,"Universities, polytechnic institutes and institutes of higher education profit and loss account  (euros)",DCAR_CONTECON_UNI
+37,124_229,1.0,Chamber of commerce balance sheet - euros,SEP_PA_CONTI_STATOPATR
+38,124_231,1.2,Revenue of institutional local unities (euros),DCAR_ENTIST
+39,124_232,1.1,Expenditures of institutional local unities  (euros),DCAR_SPEIST
+40,124_322,1.1,Chambers of commerce profit and loss account - euros,DCAR_CONTECON_CC
+41,124_722,1.0,"Local health units, hospital companies, university hospitals, general hospitals and hospitals with a scientific character profit and loss account ( thousands of euro)",DCAR_CONTECON_ASLAO
+42,124_730,1.3,Revenue of institutional central and local units,DCAR_ENTIST_PA
+43,124_732,1.2,Expenditures of central and local  institutional units,DCAR_SPEIST_PA
+44,12_323,1.2,Urban wastewater treatment plants,DCCV_IMPDEP
+45,12_340,1.1,Water abstraction for drinkable use,DCCV_PRELACQ
+46,12_60,1.2,Public water supply use,DCCV_CONSACQUA
+47,139_176,1.0,Import and export by country and commodity Nace 2007,DCSP_COEIMPEX1
+48,143_1043,1.0,Construction producer prices indeces,DCSC_INDPREPROCOSTR
+49,143_222,1.0,Import price index - monthly data,DCSC_PREIMPIND
+50,143_497,1.2,House prices (Ipab),DCSP_IPAB
+51,144_107,1.0,Foi – weights until 2010,SEP_PREZZI_NIC_FOI_WEIGHT_2010
+52,144_110,1.1,Foi - monthly data until 2010 (base 1995),DCSP_FOI1
+53,144_118,1.1,Foi - annual data until 2010 (base 1995),DCSP_FOI2
+54,144_125,1.1,Nic - annual data until 2010,DCSP_NICDUE
+55,144_126,1.1,Nic - weights  until 2010,DCSP_NICTRE
+56,144_180,1.1,Nic - monthly data until 2010,DCSP_NICUNOB
+57,145_360,1.2,Industrial producer prices,DCSC_PREZZPIND_1
+58,145_361,1.3,Construction costs,DCSC_FABBRESID_1
+59,145_376,1.2,Services producer prices,DCSC_PREZPRODSERV_1
+60,149_319,1.1,Bargaining tension,DCSC_RETRCONTR1T
+61,149_327,1.2,"Annual gross hours, net hours, holidays and other hours reduction - full-time employees",DCSC_RETRCONTR1O
+62,149_368,1.1,Hours worked - Enterprises with at least 10 employees,DCSC_ORE10_1
+63,149_577,1.3,Number of payroll jobs,DCSC_OROS_1
+64,14_121,1.0,Public transport,SEP_AMBIENTE_ENER_INDAMB
+65,14_122,1.0,Public green areas - data until 2009,SEP_AMBIENTE_ENER_INDAMB
+66,14_166,1.0,Remediation of noise,SEP_AMBIENTE_ACQ_ENER_INDAMB
+67,14_167,1.0,Acoustic pollution,SEP_AMBIENTE_INDAMB_MONINQAC
+68,150_105,1.1,Employment by number of actual weekly hours and average number of actual weekly hours,DCCV_ORELAVMED
+69,150_1168,1.0,Employment rate  - monthly data - previous regulation (until 2020),DCCV_TAXOCCUMENS1_UNT2020
+70,150_1169,1.0,Labour force  - monthly data - previous regulation (until 2020),DCCV_FORZLVMENS1_UNT2020
+71,150_1170,1.0,Employed -  monthly data - previous regulation (until 2020),DCCV_OCCUPATIMENS1_UNT2020
+72,150_1171,1.0,Activity rate  - monthly data - previous regulation (until 2020),DCCV_TAXATVTMENS1_UNT2020
+73,150_1172,1.0,Activity rate - quarterly seasonally adjusted data - previous regulation (until 2020),DCCV_TAXATVTDE1_UNT2020
+74,150_1173,1.0,Labour force - quarterly seasonally adjusted data - previous regulation (until 2020),DCCV_FORZLVDE1_UNT2020
+75,150_1174,1.0,Employed - quarterly seasonally adjusted data - previous regulation (until 2020),DCCV_OCCUPATITDE1_UNT2020
+76,150_1175,1.0,Employment rate - quarterly seasonally adjusted data - previous regulation (until 2020),DCCV_TAXOCCUDE1_UNT2020
+77,150_1188,1.0,Employment  (thousands) - previous regulation (until 2020),DCCV_OCCUPATIT1_UNT2020
+78,150_1189,1.0,Employment  rate - previous regulation (until 2020),DCCV_TAXOCCU1_UNT2020
+79,150_1190,1.0,Labour  force - previous regulation (until 2020),DCCV_FORZLV1_UNT2020
+80,150_1191,1.0,Activity  rate - previous regulation (until 2020),DCCV_TAXATVT1_UNT2020
+81,150_872,1.2,Employment rate  - monthly data,DCCV_TAXOCCUMENS1
+82,150_873,1.4,Labour force  - monthly data,DCCV_FORZLVMENS1
+83,150_875,1.3,Employed -  monthly data,DCCV_OCCUPATIMENS1
+84,150_876,1.2,Activity rate  - monthly data,DCCV_TAXATVTMENS1
+85,150_880,1.1,Activity rate - quarterly seasonally adjusted data,DCCV_TAXATVTDE1
+86,150_881,1.2,Labour force - quarterly seasonally adjusted data,DCCV_FORZLVDE1
+87,150_882,1.1,Employed - quarterly seasonally adjusted data,DCCV_OCCUPATITDE1
+88,150_883,1.2,Employment rate - quarterly seasonally adjusted data,DCCV_TAXOCCUDE1
+89,150_908,1.2,Labour  force,DCCV_FORZLV1
+90,150_915,1.2,Employment  rate,DCCV_TAXOCCU1
+91,150_916,1.2,Activity  rate,DCCV_TAXATVT1
+92,150_938,1.2,Employment  (thousands),DCCV_OCCUPATIT1
+93,151_1176,1.0,Unemployment rate  - monthly data - previous regulation (until 2020),DCCV_TAXDISOCCUMENS1_UNT2020
+94,151_1177,1.0,Unemployed  - monthly data - previous regulation (until 2020),DCCV_DISOCCUPTMENS1_UNT2020
+95,151_1178,1.0,Unemployment rate - quarterly seasonally adjusted data - previous regulation (until 2020),DCCV_TAXDISOCCUDE1_UNT2020
+96,151_1179,1.0,Unemployed - quarterly seasonally adjusted data - previous regulation (until 2020),DCCV_DISOCCUPTDE1_UNT2020
+97,151_1192,1.0,Unemployment - previous regulation (until 2020),DCCV_DISOCCUPT1_UNT2020
+98,151_1193,1.0,Unemployment  rate - previous regulation (until 2020),DCCV_TAXDISOCCU1_UNT2020
+99,151_874,1.2,Unemployment rate  - monthly data,DCCV_TAXDISOCCUMENS1
+100,151_877,1.5,Unemployed  - monthly data,DCCV_DISOCCUPTMENS1
+101,151_884,1.2,Unemployment rate - quarterly seasonally adjusted data,DCCV_TAXDISOCCUDE1
+102,151_885,1.1,Unemployed - quarterly seasonally adjusted data,DCCV_DISOCCUPTDE1
+103,151_914,1.2,Unemployment  rate,DCCV_TAXDISOCCU1
+104,151_929,1.2,Unemployment,DCCV_DISOCCUPT1
+105,152_1180,1.0,Inactivity rate  - monthly data - previous regulation (until 2020),DCCV_TAXINATTMENS1_UNT2020
+106,152_1181,1.0,Inactive population  - monthly data- previous regulation (until 2020),DCCV_INATTIVMENS1_UNT2020
+107,152_1182,1.0,Inactivity rate - quarterly seasonally adjusted data - previous regulation (until 2020),DCCV_TAXINATTDE1_UNT2020
+108,152_1183,1.0,Inactive population - quarterly seasonally adjusted data - previous regulation (until 2020),DCCV_INATTIVDE1_UNT2020
+109,152_1185,1.0,Inactive  population - previous regulation (until 2020),DCCV_INATTIV1_UNT2020
+110,152_1196,1.0,Inactivity  rate - previous regulation (until 2020),DCCV_TAXINATT1_UNT2020
+111,152_878,1.0,Inactivity rate  - monthly data,DCCV_TAXINATTMENS1
+112,152_879,1.2,Inactive population  - monthly data,DCCV_INATTIVMENS1
+113,152_886,1.0,Inactivity rate - quarterly seasonally adjusted data,DCCV_TAXINATTDE1
+114,152_887,1.3,Inactive population - quarterly seasonally adjusted data,DCCV_INATTIVDE1
+115,152_913,1.2,Inactivity  rate,DCCV_TAXINATT1
+116,152_928,1.2,Inactive  population,DCCV_INATTIV1
+117,153_369,1.0,Job vacancies - Enterprises with at least 10 employees,DCSC_POSTIVAC_1
+118,154_278,1.0,Enterprises and public administrations with at least 10 employees,DCSC_COSTLAVSTRUT_1
+119,154_373,1.2,Indicators - Enterprises with employee,DCSC_COSTLAVULAOROS_1
+120,155_274,1.1,Wages according to collective labour agreements in Public administration,DCSC_RETRCASSCOMPPA
+121,155_318,1.1,Wages according to collective labour agreements by agreement,DCSC_RETRCONTR1C
+122,155_358,1.1,Wages according to collective labour agreements by economic sector (Nace rev.2),DCSC_RETRATECO1
+123,155_374,1.2,Gross earnings - Enterprises with employees,DCSC_RETRULAOROS_1
+124,158_149,1.0,Pre-primary school,DCIS_INFANZIA
+125,158_150,1.0,Primary school,SEP_ISTFORM_SCUOLA_INFAN_PRIM_SEC
+126,158_151,1.0,Lower secondary school,SEP_ISTFORM_SCUOLA_INFAN_PRIM_SEC
+127,158_260,1.0,Upper secondary school,SEP_ISTFORM_SCUOLA_SEC_II
+128,159_17,1.0,Disabled pupils,DCIS_ALUNNIDIS
+129,159_18,1.1,Schools with pupils with disabilities and figures for integration,DCIS_SCUOLEDIS
+130,159_19,1.0,Schools with pupils with deafness and presence of communicators,DCIS_SCUOLESORDI
+131,160_233,1.1,Social security funds - number of employees,DCAR_ENTPREVDIP
+132,160_234,1.0,Social security funds - expenditures (thousands of euro),SEP_PA_ENTIPREV_ENTRATE
+133,160_235,1.1,Social security funds - revenue (thousands of euro),DCAR_ENTPREVENT_PA
+134,160_753,1.0,Social security funds  S13 - number of employees,DCAR_ENTPREVDIP_PA
+135,160_754,1.1,Social security funds S13 - revenue (thousands of euro),DCAR_ENTPREVENT_PA
+136,160_755,1.0,Social security funds S13 - expenditures (thousands of euro),DCAR_ENTPREVSPE_PA
+137,161_267,1.3,Enterprises economic indicators,DCSP_SBSNAZ
+138,161_268,1.2,Enterprises economic indicators - reg.,DCSP_SBSREG
+139,161_297,1.1,National Structural Business Statistics (data until 2007),SEP_SISTIMPR_RE_STRIMPR_2002
+140,161_81,1.0,Regional Structural Business Statistics (data until 2007),DCSP_SBSREG2002
+141,162_1058,1.1,Sequence of quarterly accounts by institutional sector - Accounts in the 2014 version,DCCN_ISTITUZ_QNA_B14
+142,162_1064,1.1,Sequence of quarterly accounts by institutional sector,DCCN_ISTITUZ_QNA1
+143,162_633,1.5,Sequence of quarterly accounts by institutional sector - Accounts in the 2014 version,DCCN_ISTITUZ_QNA
+144,163_144,1.0,Accounts aggregates by industry (NACE Rev.1.1) - edition September 2011,SEP_CONTINAZ_ANN_QUA_TER_AGGREG
+145,163_156,1.3,"Gross domestic product, expenditure components and contribution to GDP growth",DCCN_SQCQ
+146,163_184,1.2,Gross Domestic Product  and main components,DCCN_PILQ
+147,163_24,1.1,National Accounts quarterly main aggregates,DCCN_QNA
+148,163_241,1.1,Final consumption expenditure of households - editions until August 2014,DCCN_CONSFAMQ
+149,163_246,1.0,Costs and margins breakdown by industry (NACE Rev.1.1) - edition September 2011,SEP_CONTINAZ_QUA_COSTIMARGINI
+150,163_247,1.3,Gross domestic product supply side - editions until August 2014,DCCN_PILPRODQ
+151,163_250,1.2,Gross fixed capital formation - editions until August 2014,DCCN_INVESTIQ
+152,163_253,1.3,Gross domestic product and expenditure components - editions until August 2014,DCCN_SEQZCONTIQ
+153,163_257,1.0,Employment breakdown by industry (NACE Rev.1.1) - edition September 2011,SEP_CONTINAZ_QUA_TER_OCCXBRANCA
+154,163_296,1.2,Accounts aggregates by industry (NACE Rev.2) - editions  from December 2011 to August 2014,DCCN_AGGREGBRANCAQREV2
+155,163_299,1.2,Costs and margins breakdown by industry (NACE Rev.2) - editions  from December 2011 to June 2014,DCCN_COSTMARGQREV2
+156,163_300,1.4,Employment breakdown by industry (NACE Rev.2) - editions  from December 2011 to June 2014,DCCN_OCCUPQREV2
+157,163_88,1.2,Employment breakdown by industry,DCCN_OCCQSEC2010
+158,164_164,1.1,Estimated resident population - Years 2002-2019,DCIS_RICPOPRES2011
+159,165_1167,1.0,Households projections - Years 2020-2040,DCIS_PREVFAM
+160,165_889,1.0,Demographic projections - Years 2018-2065,DCIS_PREVDEM1
+161,167_33,1.4,Nic - monthly data from 2011 until 2015 (base 2010),DCSP_NICUNOBB2010
+162,167_34,1.0,Nic - annual average from 2011 until 2015 (base 2010),DCSP_NICDUEB2010
+163,167_35,1.0,Nic – weights from 2011 until 2015,DCSP_NICTREB2010
+164,167_742,1.4,Nic – annual average from 2016 onwards(base 2015),DCSP_NIC2B2015
+165,167_743,1.6,Nic – weights from 2016,DCSP_NIC3B2015
+166,167_744,1.9,Nic - monthly data from 2016 onwards(base 2015),DCSP_NIC1B2015
+167,168_2,1.0,Hicp - monthly and quarterly data from 2001 until 2015(base 2005),DCSP_IPCA1
+168,168_261,1.1,Hicp - at constant tax rates annual data(base 2005),DCSP_IPCATC2
+169,168_306,1.2,Hicp - at constant tax rates monthly data (base 2005),DCSP_IPCATC1
+170,168_5,1.1,Hicp - annual data from 2001 until 2015 (base 2005),DCSP_IPCA2
+171,168_6,1.2,Hicp - weights  from 2001,DCSP_IPCA3
+172,168_756,1.4,Hicp - at constant tax rates monthly data (base 2015),DCSP_IPCATC1B2015
+173,168_757,1.1,Hicp- at constant tax rates annual data (base 2015),DCSP_IPCATC2B2015
+174,168_758,1.2,Hicp - annual data from 2001 (base 2015),DCSP_IPCA2B2015
+175,168_760,1.4,Hicp - monthly data from 2001,DCSP_IPCA1B2015
+176,169_15,1.0,Foi - monthly data from 2011 to 2015 (base 2010),DCSP_FOI1B2010
+177,169_28,1.0,Foi - annual data from 2011 to 2015  (base 2010),DCSP_FOI2B2010
+178,169_30,1.0,FOI - Weights from 2011 to 2015,DCSP_FOI3B2010
+179,169_745,1.1,Foi - monthly data from 2016 (base 2015),DCSP_FOI1B2015
+180,169_746,1.0,Foi - annual data from 2016 (base 2015),DCSP_FOI2B2015
+181,169_747,1.1,FOI - Weights from 2016 onwards,DCSP_FOI3B2015
+182,172_1197,1.0,Supplementary  indicators to unemployment - previous regulation (until 2020),DCCV_COMPL1_UNT2020
+183,172_1198,1.0,"Young  people not in employment, education or training - previous regulation (until 2020)",DCCV_NEET1_UNT2020
+184,172_926,1.1,Supplementary  indicators to unemployment,DCCV_COMPL1
+185,172_931,1.0,Neet  (Young people  neither in employment nor in education and training),DCCV_NEET1
+186,174_321,1.1,Daily activities,DCCV_ATTPRINC
+187,174_65,1.4,Distribution of household work of couples,DCCV_ASIMMETRIA
+188,174_66,1.3,Time spent alone or with other people,DCCV_CONCHI
+189,174_80,1.3,Daily activities - people in couple,DCCV_COPPIE
+190,174_82,1.2,Locations frequented,DCCV_LUOGHI
+191,175_634,1.3,Disposable income of households,DCCN_ISTITUZ_TNA
+192,183_1163,1.0,Local units and persons employed - Territory at data reference year,DICA_ASIAULP_TERRIFDATA
+193,183_203,1.2,Enterprises - human resources,DICA_ACDP
+194,183_207,1.3,Enterprises -  outworkers by class of annual income and work period,DICA_AESTCP
+195,183_208,1.3,Enterprises - outworkers,DICA_AESTLP
+196,183_275,1.3,Eneterprises - self-employed,DICA_AINDP
+197,183_276,1.2,Enterprises - temporary workers,DICA_AINTP
+198,183_277,1.1,Enterprises - persons employed and self-employed,DICA_ASIAUE1P
+199,183_285,1.6,Local units and persons employed,DICA_ASIAULP
+200,183_286,1.2,Enterprises - persons employed,DICA_ADIPWP
+201,183_332,1.3,Local units of enterprises - persons employed,DICA_ASIAULOCCP
+202,183_336,1.2,Enterprises - persons employees by social security contribution allowance,DICA_ADIPPP
+203,183_464,1.0,Enterprises - human resources by highest level of education attained,DICA_TISTUDIO
+204,18_154,1.1,Production of gross electricity from renewable energy sources,DCCV_PRODENERG
+205,18_157,1.0,Energy Balance,SEP_AMBIENTE_ENER_BILENER
+206,18_635,1.1,Households energy consumption,DCCV_CENERG
+207,22_1201,1.1,Semi-supercentenarian population (105 years and more),DCIS_SSCENT
+208,22_289,1.5,Resident population  on 1st January,DCIS_POPRES1
+209,22_293,1.4,Demographic  indicators,DCIS_INDDEMOG1
+210,22_315,2.1,Resident population  - balance,DCIS_POPORESBIL1
+211,24_1149,1.0,Civil partnerships-Demographic characteristics,DCIS_UNIONDEMO
+212,24_1150,1.0,Civil partnerships - Indicators,DCIS_UNIONIND
+213,24_1151,1.0,Civil partnerships - Socio-professional characteristics,DCIS_UNIONISOC
+214,24_1152,1.0,Civil partnerships - Citizenship,DCIS_UNIONICIT
+215,24_186,1.6,Civil partnerships - Citizenship,DCIS_MATRDEMO
+216,24_386,1.2,Spouses professional and territorial characteristics,DCIS_MATRIMONI_SOC
+217,24_446,1.3,Spouses citizenship,DCIS_MATRIMONICIT
+218,24_447,1.5,Spouses - Demographic characteristics,DCIS_SPOSI
+219,24_84,1.4,Marriages - Indicators,DCIS_MATRIND
+220,25_326,1.2,Fertility  indicators,DCIS_FECONDITA1
+221,25_74,1.8,Live births,DCIS_NATI1
+222,25_944,1.1,Fertility tables by birth order,DCIS_ARCH_FEC
+223,26_29,1.1,Deaths,DCIS_DECESSI
+224,26_295,1.1,Life  tables,DCIS_MORTALITA1
+225,270_242,1.0,Final consumption expenditure of households,DCCN_CONSFAMT
+226,270_243,1.1,Final consumption expenditure of general government,DCCN_CONSPAT
+227,270_248,1.1,Gross domestic product supply side,DCCN_PILPRODT
+228,270_254,1.1,Sequence of accounts,DCCN_SEQZCONTIT
+229,270_255,1.1,Per capita values,DCCN_VALPROCAPT
+230,270_298,1.0,Accounts aggregates by industry (NACE Rev.2),DCCN_AGGREGBRANCATREV2
+231,270_301,1.0,Employment breakdown by industry (NACE Rev.2),DCCN_OCCUPTREV2
+232,272_1164,1.0,Kinship and support network,DCCV_RELAZ_PARENT
+233,27_349,1.2,Separations - Indicators 2008-2014,DCIS_SEPARAZIND
+234,27_355,1.2,Divorces - Indicators 2008-2014,DCIS_DIVORZIND
+235,27_384,1.0,Separations - Demographic characteristics 2008-2014,DCIS_SEPARAZDEMCONG
+236,27_385,1.0,Divorces - Demographic characteristics 2008-2014,DCIS_DIVORDEMCONG
+237,27_467,1.0,Separations -  Demographic characteristics,DCIS_SEPARAZDEMCONG1
+238,27_468,1.0,Separations -  Socio-professional characteristics,DCIS_SEPARAZSOC1
+239,27_469,1.0,Separations -  Characteristics and minor children in custody,DCIS_SEPARAZFIG1
+240,27_470,1.0,Divorces -  Demographic characteristics,DCIS_DIVORDEMCONG1
+241,27_474,1.1,Separations -  Indicators,DCIS_SEPARAZIND1
+242,27_475,1.0,Divorces -  Socio-professional characteristics,DCIS_DIVSOC1
+243,27_731,1.0,Separations - Characteristics and minor children in custody 2008-2014,DCIS_SEPARAZFIG
+244,27_748,1.0,Separations - Social characteristics 2008-2014,DCIS_SEPARAZSOC
+245,27_749,1.0,Divorces - Social characteristics 2008-2014,DCIS_DIVSOC
+246,27_814,1.1,Divorces - Characteristics and minor children in custody 2008-2014,DCIS_DIVFIG
+247,27_945,1.1,Divorces - Characteristics and minor children in custody 2008-2014,DCIS_DIVFIG1
+248,27_946,1.1,Divorces -  Indicators,DCIS_DIVORZIND1
+249,283_138,1.0,New series of estimates on the resident population at NUTS-2 level for the 1/1/2002-1/1/2014 period,DCIS_RICSTAT
+250,284_103,1.1,Main aggregates by industry (Nace Rev.2) - editions  from October 2011 to March 2014,DCCN_AGGREGBRANCANREV2
+251,284_104,1.0,Per capita values - editions  from October 2011 to March 2014,DCCN_VALPROCAPN
+252,284_159,1.1,Gross Domestic Product and main components - editions until March 2014,DCCN_AGGRPIL
+253,284_238,1.0,"Gross fixed capital formation, stocks of fixed assets, consumption of fixed capital by asset and industry (Nace Rev.1.1) - editions prior to October 2011",DCCN_CAPITALN
+254,284_240,1.0,Final consumption expenditure of households - editions until March 2014,DCCN_CONSFAMN
+255,284_249,1.0,Capital formation - editions until March 2014,DCCN_INVESTIN
+256,284_252,1.1,Sequence of accounts - editions until March 2014,DCCN_SEQZCONTIN
+257,284_302,1.0,"Gross fixed capital formation, stocks of fixed assets, consumption of fixed capital by asset and industry (Nace Rev.2) - editions  from October 2011 to March 2014",DCCN_CAPITALNREV2
+258,284_9,1.0,Regular and irregular employment - editions  from October 2011 to March 2014,DCCN_OCCUPNREV2
+259,285_245,1.0,Contributions to GDP growth - editions until August 2014,DCCN_CONTRIBQ
+260,28_185,1.1,Migration (Transfer of residence),DCIS_MIGRAZIONI
+261,29_316,1.5,Resident foreigners - Balance,DCIS_POPSTRBIL1
+262,29_317,1.5,Resident foreigners on 1st January - Citizenship,DCIS_POPSTRCIT1
+263,29_348,1.1,Residence permits of non-EU citizens,DCIS_PERMSOGG1
+264,29_7,1.4,Resident foreigners on 1st January,DCIS_POPSTRRES1
+265,29_849,1.0,Acquisitions of citizenship,DCIS_ACQCITIZ
+266,29_956,1.0,Resident foreigners and life conditions,DCIS_CV_STRA
+267,30_1008,1.1,Irpef taxable incomes (Ipef) - municipalities,MEF_REDDITIIRPEF_COM
+268,30_264,1.4,Consumer confidence,DCSC_FIDCONS
+269,31_124,1.0,Average monthly expenditure,SEP_CONDFAM_CONSUMI_SPEMM
+270,31_163,1.0,Household purchasing behaviour,SEP_CONDFAM_CONSUMI_COMPORT
+271,31_199,1.0,Homogeneity of regional expenditure,SEP_CONDFAM_CONSUMI_INDCONS
+272,31_206,1.0,Household expenditure quintile,SEP_CONDFAM_CONSUMI_QUINTO
+273,31_213,1.0,households reporting expenditures on some items,SEP_CONDFAM_CONSUMI_COMP_SPEFF
+274,31_214,1.0,Actual expenditure detail,SEP_CONDFAM_CONSUMI_DETT_SPEFF
+275,31_739,1.6,Consumption expenditure,DCCV_SPEMEFAM
+276,32_221,1.1,Homogeneity of regional income,DCCV_GINIREDD
+277,32_223,1.1,Households by income source,DCCV_FONTEPRED
+278,32_292,1.1,Net income,DCCV_REDNETFAMFONTERED
+279,32_38,1.1,Household income quintile,DCCV_QUINTOREDD
+280,33_179,1.2,Housing crowding,DCCV_ABITAFFOLL
+281,33_225,1.1,Housing costs,DCCV_ABITSPESA
+282,33_290,1.1,Tenure status (rent or property),DCCV_TITGODABIT
+283,33_291,1.0,"Pollution, criminality and noise in the dwelling place",SEP_CONDFAM_ABITAZ_PROBLZONRES
+284,33_350,1.0,Housing costs for households with non national members,SEP_CONDFAM_ABITAZ_SPESA_STRA
+285,33_4,1.1,"Damaged, humid and lightless house",DCCV_ABITPROBL
+286,34_178,1.0,Household absolute poverty incidence,SEP_CONDFAM_POVER_POV_FAM
+287,34_198,1.0,Household relative poverty incidence,SEP_CONDFAM_POVER_POV_FAM
+288,34_201,1.0,Absolute poverty indicators,SEP_CONDFAM_POVER_IND_POV
+289,34_202,1.0,Relative poverty indicators,SEP_CONDFAM_POVER_IND_POV
+290,34_204,1.0,Household absolute poverty intensity,SEP_CONDFAM_POVER_INT_POV_FAM
+291,34_205,1.0,Household relative poverty intensity,SEP_CONDFAM_POVER_INT_POV_FAM
+292,34_211,1.0,Absolute poverty threshold,SEP_CONDFAM_POVER_SOGLIASS
+293,34_212,1.0,Relative poverty threshold,SEP_CONDFAM_POVER_SOGLIAREL
+294,34_215,1.2,Households with arreared paymentes,DCCV_ARRETRATI
+295,34_216,1.2,Households who can't afford to save or to face unexpected expenses,DCCV_IMPREV
+296,34_217,1.2,Households who believe too heavy some housing-costs or repayment of debts,DCCV_CARICOPES
+297,34_218,1.2,Households who can't afford to purchase some durable goods,DCCV_DIFFBENDUR
+298,34_219,1.2,Households who  do not have enough money for selected items,DCCV_NOSOLDI
+299,34_220,1.1,Households for minimum income needed to make ends meet,DCCV_REDDFINMES
+300,34_226,1.0,Households by ability to make ends meet,SEP_CONDFAM_POVER_PERCEPIT
+301,34_280,1.1,Households who do not afford to buy selected items,DCCV_FAMNOVOCISPESA
+302,34_727,1.1,Poverty new series,DCCV_POVERTA
+303,392_584,1.1,PhD graduates - socio-demographic characteristics and curriculum,DCCV_TRANSIZ_DOTT_DEM
+304,392_585,1.2,PhD graduates - wage and hours worked,DCCV_TRANSIZ_DOTT_REDDITO
+305,392_586,1.1,PhD graduates - territorial mobility,DCCV_TRANSIZ_DOTT_MOBILITA
+306,392_636,1.3,PhD graduates - professional status,DCCV_TRANSIZ_DOTT_OCCUPAZ
+307,392_708,1.2,PhD graduates - job search and satisfaction,DCCV_TRANSIZ_DOTT_ASPIR_SODDIS
+308,395_344,1.0,Sequence of quarterly accounts by institutional sector - Accounts in the 2011 version,DCCN_SEQCONTIASQ
+309,396_61,1.0,Disposable income of households,DCCN_SEQCONTIRFT
+310,39_1005,1.0,Suicides,DCIS_SUICIDI
+311,39_57,1.0,Multiple causes of death,DCIS_CMORTEM
+312,41_269,1.2,Road  accidents with injuries,DCIS_INCIDENTISTR1
+313,41_270,1.1,Killed and injured in road accidents,DCIS_MORTIFERITISTR1
+314,41_287,1.2,Road accidents indicators,DCIS_INDINCIDENT
+315,41_288,1.2,Vehicles - Public Register of Motor-vehicles,DCIS_VEICOLIPRA
+316,41_983,1.1,"Road accidents, killed and injured - municipalities",DCIS_INCIDMORFER_COM
+317,41_993,1.0,Vehicles - Public Register of Motor-vehicles - municipalities,DCIS_VEICOLIPRA_COM
+318,42_1108,1.0,Induced abortions  characteristics of the event,DCIS_IVG_CARATTEV1
+319,42_210,1.1,Induced abortions - Migration,DCIS_IVG_MIGRAZIONE
+320,42_320,1.1,Spontaneous abortions - resignation from the woman's birthplace,DCIS_ABORTISPONTN
+321,42_324,1.3,Spontaneous abortions - resignation from the woman's place of residence,DCIS_ABORTISPONTR
+322,42_325,1.3,Spontaneous abortions - resignation from the place of the event,DCIS_ABORTISPONTL
+323,42_70,1.2,Induced abortion - Woman's characteristics,DCIS_IVG_CARATTDON
+324,43_1016,1.0,Primary care and residential and semiresidential facilities,DCIS_ASSB_SSDISTR
+325,43_236,1.1,Health facilities for primary care,DCIS_ASSBASE
+326,43_237,1.1,Outpatient and residential facilities,DCIS_STRSANDISTR
+327,43_283,1.2,Hospital discharges for mental disorders by place of residence,DCIS_OSPDISTPSICHRES
+328,43_284,1.2,Resignation for mental disorders compared to the place of discharge,DCIS_OSPDISTPSICHRIC
+329,43_339,1.2,Hospitalizations for acute care by citizenship,DCIS_OSPSTRA
+330,43_495,1.0,Hospitals,DCIS_OSPEDSSN
+331,43_967,1.0,Hospitals,DCIS_OSPED
+332,43_973,1.0,Personnel of health services,DCIS_PERS_SANIT
+333,43_98,1.0,Doctor consultations and diagnostic tests,DCIS_RSERVSAN
+334,43_994,1.1,Hospitals - municipalities,DCIS_OSPED_COM
+335,46_572,1.1,Pensions broken time series 2008-2013,DCAR_PENSIONI1
+336,46_573,1.0,Pensioners broken time series 2008-2013,DCAR_PENSIONATI1
+337,46_812,1.2,Pensioners,DCAR_PENSIONATI2
+338,46_813,1.4,Pensions,DCAR_PENSIONI2
+339,47_850,1.5,Socio-educational  services for infancy day-care,DCIS_SERVSOCEDU1
+340,47_940,1.3,Social services and benefits of municipalities,DCIS_SPESESERSOC1
+341,498_1104,1.0,People at risk of poverty or social exclusion,DCCV_RISKPOV
+342,49_23,1.2,Residential care facilities (broken time series),DCIS_POSTILETTOPRESIDI
+343,49_37,1.2,Residential social and health care facilities,DCIS_PRESIDI1
+344,49_62,1.3,Guests of social and health care residential facilities,DCIS_OSPITIPRESIDI1
+345,52_1044,1.0,Schools,DCIS_SCUOLE
+346,52_1194,1.0,Population 15 years and over by highest level of education - previous regulation (until 2020),DCCV_POPTIT1_UNT2020
+347,52_1203,1.0,Early leavers from education and training -  aged 18 to 24 - previous regulation (until 2020),DCCV_ESL_UNT2020
+348,52_607,1.0,Early leavers from education and training -  aged 18 to 24,DCCV_ESL
+349,52_912,1.0,Population 15 years and over by highest level of  education,DCCV_POPTIT1
+350,532_1195,1.0,Popoulation  by labour status - previous regulation (until 2020),DCCV_POPCOND1_UNT2020
+351,532_930,1.1,Popoulation  by labour status,DCCV_POPCOND1
+352,533_957,1.0,Average hourly earnings for employee jobs in the  private  sector,DCSC_RACLI
+353,534_1037,1.0,Hours worked - Enterprises with employees,DCSC_ORE10_2
+354,534_1038,1.0,Job vacancies - Enterprises with employees,DCSC_POSTIVAC_2
+355,534_49,1.1,Hours worked - Enterprises with more than 500 employees,DCSC_GI_ORE
+356,534_50,1.1,Labour positions - Enterprises with more than 500 employees,DCSC_GI_OCC
+357,535_194,1.1,Gross earnings - Enterprises with more than 500 employees,DCSC_GI_RE
+358,536_193,1.1,Enterprises with more than 500 employees,DCSC_GI_COS
+359,56_1045,1.0,University students - municipality of the university,DCIS_ISCRITTI_COM_A
+360,56_1046,1.0,University students - municipality of residence,DCIS_ISCRITTI_COM_R
+361,56_1135,1.2,University  professors,DCIS_DOCENTI1
+362,56_188,1.0,University professors,SEP_ISTFORM_UNIV_DOCENTI
+363,56_189,1.0,University indicators,SEP_ISTFORM_UNIV_INDUNIV
+364,56_190,1.0,Graduates,SEP_ISTFORM_UNIV_IMM_LAUR
+365,56_258,1.0,Entrants,SEP_ISTFORM_UNIV_IMM_LAUR
+366,56_259,1.0,University studens,SEP_ISTFORM_UNIV_ISCR
+367,56_77,1.2,Services for pupils with disabilities,DCIS_SANSCUOLE
+368,609_363,1.0,Green and other environmental data,DCCV_AMBURB
+369,60_1004,1.0,Museums and similar institutions - municipalities,DCIS_MUSVIS_COM
+370,60_1166,1.0,Published  books,DCIS_PUBBLICATE3
+371,610_119,1.0,Private transportation,DCCV_TRASPRIV
+372,612_933,1.1,University graduates - Socio-demographic characteristics and curriculum,DCCV_LAU_DEM_FORM
+373,612_937,1.0,University graduates - job search,DCCV_LAU_RIC
+374,612_939,1.1,University graduates - occupational status,DCCV_LAU_OCCUP_RED
+375,613_934,1.1,High school graduates - socio-demographic characteristics and curriculum,DCCV_DIPL_DEM_FORM
+376,613_935,1.0,High school graduates - employment conditions and remuneration,DCCV_DIPL_OCCUP_REDD
+377,613_936,1.0,High school graduates - seeking a job,DCCV_DIPL_RIC
+378,65_130,1.0,Internet: access and type of use,DCCV_ICT
+379,669_1073,1.0,Environmental tax revenue 2014 version,DCCN_IMPAMB1_B14
+380,669_1080,1.3,NAMEA air emissions (NACE Rev. 2) 2014 version,DCCN_CONTIEMATMREV2_B14
+381,669_1081,1.1,Physical energy flow accounts (PEFA) 2014 version,DCCN_PEFA_B14
+382,669_1113,1.0,Environmental protection expenditure 2014 version,DCCN_SPESAPROTAMB_B14
+383,669_1116,1.1,National materials' use accounts 2014 version,DCCN_FLUMAT_B14
+384,669_1119,1.1,Environmental goods and services accounts 2014 version,DCCN_EGSS_B14
+385,669_964,1.0,Environmental tax revenue,DCCN_IMPAMB0
+386,669_967,1.1,NAMEA air emissions (NACE Rev. 2) 2011 version,DCCN_CONTIEMATMREV1
+387,66_195,1.1,Museums and similar institutions,DCIS_MUSVIS
+388,66_3,1.0,State Archives,SEP_CCTL_MUSEI_ARCHIST
+389,66_41,1.1,State owned libraries,DCIS_BIBLIOT
+390,66_86,1.0,Museums and similar institutions,SEP_CCTL_MUSEI_MUSEI
+391,66_89,1.0,Activities of museums and similar institutions,SEP_CCTL_MUSEI_SERVMUSEI
+392,66_90,1.2,Admissions of museums and similar institutions,DCIS_VISITMUSEI
+393,68_161,1.2,Persons who went and didn't go on holiday,DCCV_TURANN_NO_TURAN_CAPI
+394,68_265,1.0,Expenditure on tourism trips in rented accomodations,DCCV_VIAGGI_SPESE_CAPI
+395,68_338,1.1,Same-day visits,DCCV_ESC_CAPI
+396,68_356,1.1,Persons who made trips,DCCV_TURISTI_CAPI
+397,68_357,1.2,Overnight stays  for trips,DCCV_TURNOT_CAPI
+398,68_359,1.0,Trips by characteristics of the tourist,DCCV_VIAGGI_RES
+399,68_365,1.0,Trips by purpose,DCCV_VIAGGI
+400,68_370,1.0,Persons not participating in holidays (quarterly data),DCCV_NON_TURISTI
+401,68_371,1.0,Persons who made trips (quarterly data),DCCV_TURISTI
+402,68_380,1.0,Trips by characteristics of the trip,DCCV_VIAGGI_CHARACT
+403,68_381,1.0,Overnight stays for trips,DCCV_TURNOT
+404,68_697,1.2,Trips by purpose,DCCV_VIAGGI_CAPI
+405,68_698,1.0,Trips  and their characteristics,DCCV_VIAGGI_CHARACT_CAPI
+406,68_699,1.0,Trips by characteristics of the tourist,DCCV_VIAGGI_RES_CAPI
+407,68_702,1.0,Trips and overnightstays – Statistical back recalculation 1997-2013,DCCV_TUR_RIC_CAPI
+408,6_20,1.6,Research and Development,DCSP_RS
+409,6_39,1.8,ICT in companies with at least 10 persons employed,DCSP_ICT
+410,6_471,1.3,Innovation in companies with at least 10 persons employed,DCSP_LACIS
+411,6_64,1.1,Business confidence climate,DCSC_IESI
+412,723_1036,1.0,Households - labour status,DCCV_FAMCOND1
+413,723_1040,1.0,Persons by role in household - labour status,DCCV_RUOLOFAMCOND
+414,723_1041,1.0,Couple family - labour status,DCCV_COPPIECOND
+415,723_1206,1.0,Households - labour status - previous regulation (until 2020),DCCV_FAMCOND1_UNT2020
+416,723_1207,1.0,Couple family - labour status - previous regulation (until 2020),DCCV_COPPIECOND_UNT2020
+417,723_1208,1.0,Persons by role in household - labour status - previous regulation (until 2020),DCCV_RUOLOFAMCOND_UNT2020
+418,729_1050,1.1,Total area,DCCV_CARGEOMOR_ST_COM
+419,729_995,1.0,Areas at hydrogeological risk,DCCV_CARGEOMOR_COM
+420,72_155,1.1,Civil proceedings,DCAR_NUM_PROC_CIV
+421,72_158,1.1,"Civil proceedings - labour, social security and compulsory welfare",DCAR_PROC_CIV
+422,730_1006,1.0,Sequence of accounts - editions from October 2014 to April 2019,DCCN_SQCN_B14
+423,730_1047,1.0,Gross Domestic Product and main components - editions from October 2014 to April 2019,DCCN_PILN_B14
+424,730_1048,1.0,National accounts annual main aggregates - editions from October 2014 to April 2019,DCCN_ANA_B14
+425,730_1049,1.1,"Regular, irregular employment and population - editions from October 2014 to April 2019",DCCN_OCCNSEC2010_B14
+426,732_1051,1.1,"Gross domestic product, expenditure components and contribution to GDP growth - editions from October 2014 to August 2019",DCCN_SQCQ_B14
+427,732_1052,1.0,Gross Domestic Product and main components - editions from October 2014 to August 2019,DCCN_PILQ_B14
+428,732_1053,1.0,National Accounts quarterly main aggregates - editions from October 2014 to August 2019,DCCN_QNA_B14
+429,732_1054,1.0,Employment breakdown by industry - editions from October 2014 to August 2019,DCCN_OCCQSEC2010_B14
+430,733_1055,1.1,"Sequence of accounts and non-financial assets, by institutional sector - editions from October 2015 to April 2019",DCCN_ISTITUZ_ANA_B14
+431,733_1056,1.0,Employment breakdown by industry - editions from October 2014 to April 2019,DCCN_OCCSISEC2010_B14
+432,734_1059,1.1,Quarterly account - editions from January 2016 to June 2019,DCCN_FPQ_B14
+433,734_1060,1.0,Annual non-financial accounts - editions until April 2019,DCCN_FPA_B14
+434,734_1061,1.0,Annual expenditure by subsector - editions until April 2019,DCCN_OTEPPA_B14
+435,737_1082,1.0,Sequence of accounts - editions  from October  2012 to December 2018,DCCN_SQCT_B14
+436,737_1083,1.0,Gross domestic product supply side - editions from October 2012 to December 2018,DCCN_PILT_B14
+437,737_1084,1.0,National Accounts regional main aggregates  - editions from October 2012 to December 2018,DCCN_TNA_B14
+438,737_1087,1.1,"Regular, irregular employment and population - editions from October 2012 to December 2018",DCCN_OCCTSEC2010_B14
+439,737_1093,1.0,Disposable income of the households in the italian regions - editions from November 2015 to december 2018,DCCN_ISTITUZ_TNA_B14
+440,73_1071,1.1,Persons prosecuted by the public prosecutor - adults,DCCV_IMPUTATI_A
+441,73_1072,1.1,Persons prosecuted by the public prosecutor - minors,DCCV_IMPUTATI_M
+442,73_160,1.0,Criminal proceedings,SEP_GIUSTSIC_PEN_PROC
+443,73_173,1.2,Prison population held in institutions for adults in Italy,DCCV_DETENUTI
+444,73_230,1.2,Alleged offenders and victims of crimes reported by the police forces to the judicial authority,DCCV_AUTVITTPS
+445,73_342,1.0,Reports of persons suspected by the police forces to have committed crime,SEP_GIUSTSIC_PEN_SEGNAL
+446,73_436,1.2,Proceedings and crimes after the Public Prosecutor Office decisions - minors,DCCV_PROCEEDCRIME_M
+447,73_440,1.5,Proceedings and crimes after the Public Prosecutor Office decisions - adults,DCCV_PROCEEDCRIME_A
+448,73_58,1.4,Persons convicted by final judgement - Characteristics  of the judgements,DCCV_CONDCRIM1
+449,73_59,1.3,Persons convicted by final judgement - Demographic characteristics,DCCV_CONDGEO1
+450,73_67,1.0,Crimes reported by the police forces to the judicial authority,SEP_GIUSTSIC_PEN_DELITTI
+451,74_171,1.2,Administrative justice proceedings,DCAR_PROC_AMM
+452,74_172,1.1,Administrative justice decisions,DCAR_DEC_AMM
+453,750_1117,1.0,"Agriculture, forestry and fishing accounts in the 2014 version",DCCN_VAAGSIPET_B14
+454,750_1118,1.0,"Agriculture, forestry and fishing accounts in the 2011 version",DCCN_VAAGSIPET_B11
+455,760_1140,1.0,System of Health Accounts (SHA) in the 2014 version,DCCN_SHA_B14
+456,76_177,1.3,Protests,DCAR_PROTESTI
+457,77_47,1.1,Notarial deeds,DCAR_ATT_NOTAR
+458,77_68,1.0,Agreements contained in notarial deeds,SEP_GIUSTSIC_NOT_CONV
+459,78_1112,1.0,Women who have suffered violence - demographic characteristics and habits,DCCV_VIOL_CARAT
+460,78_1114,1.0,Users who turn to 1522 (anti-violence and stalking number),DCCV_1522_UTENTI
+461,78_1121,1.2,Victims turning to 1522 (anti-violence and stalking number),DCCV_1522_VITTIME
+462,78_1161,1.0,Opinions about gender roles and about violence against women - adults,DCCV_RUOLIGEN
+463,78_1205,1.0,Users to 1522 ( anti-violence and stalking number ),DCCV_1522UTENTI4
+464,78_71,1.1,Women victims of violence committed by partner or ex-partner,DCCV_VIOLENZADONNEPART
+465,78_72,1.1,Women victims of violence committed by men,DCCV_VIOLENZADONNE
+466,82_87,1.1,Aspects of daily life - Household,DCCV_AVQ_FAMIGLIE
+467,83_63,1.3,Aspects of daily life,DCCV_AVQ_PERSONE
+468,83_85,1.1,Aspects of daily life - Persons,DCCV_AVQ_PERSONE1
+469,85_170,1.0,Volunteering in organizations,SEP_PARTSO_GRATU_VOLONORG
+470,85_83,1.1,Volunteering with or withouth organizations,DCSA_VOLON
+471,91_963,1.0,System of Health Accounts (SHA),DCCN_SHA
+472,92_143,1.1,Main aggregates by industry (Nace Rev.1.1) - editions prior to October 2011,DCCN_AGGREGBRANCAN
+473,92_504,1.3,National Accounts annual main aggregates,DCCN_ANA
+474,92_505,1.3,Sequence of accounts,DCCN_SQCN
+475,92_506,1.2,Gross Domestic Product and main components,DCCN_PILN
+476,92_507,1.5,Regular and irregular employment,DCCN_OCCNSEC2010
+477,93_1095,1.0,Disposable income of the households  in the italian regions,DCCN_ISTITUZ_TNA1
+478,93_209,1.0,Accounts aggregates by industry (NACE Rev.1.1),SEP_CONTINAZ_ANN_QUA_TER_AGGREG
+479,93_239,1.1,Gross fixed capital formation breakdown by industry (NACE Rev.1.1),SEP_CONTINAZ_ANN_TER_INVEST
+480,93_256,1.0,Employment breakdown by industry (NACE Rev.1.1),SEP_CONTINAZ_QUA_TER_OCCXBRANCA
+481,93_303,1.1,Gross fixed capital formation breakdown by industry (NACE Rev.2),SEP_CONTINAZ_TER_INVESTREV2
+482,93_379,1.3,Regular and irregular employment,DCCN_OCCTSEC2010
+483,93_382,1.2,Sequence of accounts,DCCN_SQCT
+484,93_48,1.5,"Agriculture, forestry and fishing accounts",DCCN_VAAGSIPET
+485,93_498,1.2,Gross domestic product supply side,DCCN_PILT
+486,93_500,1.4,National Accounts regional main aggregates,DCCN_TNA
+487,94_1063,1.1,Non-financial  assets  and sequence of accounts by institutional sector,DCCN_ISTITUZ_ANA1
+488,94_251,1.4,Sequence of accounts - editions until September 2015,DCCN_SEQCONTIASA
+489,94_335,1.2,Employment breakdown by industry - editions March 2012 and March 2013,DCCN_OCCUPIREV2
+490,94_805,1.1,Employment breakdown by industry,DCCN_OCCSISEC2010
+491,95_42,1.0,Quarterly non-financial accounts,DCCN_FPQ
+492,95_815,1.6,Annual account,DCCN_FPA
+493,95_94,1.1,Annual expenditure by subsector,DCCN_OTEPPA
+494,96_1068,1.0,Social protection accounts in the 2014 version,DCCN_PROTSOC_B14
+495,96_1069,1.0,Social protection accounts in the 2011 Version,DCCN_PROTSOC_B11
+496,97_1027,1.1,Physical energy flow accounts (PEFA),DCCN_PEFA
+497,97_1028,1.2,Environmental goods and services accounts,DCCN_EGSS
+498,97_187,1.7,NAMEA air emissions (NACE Rev.2),DCCN_CONTIEMATMREV2
+499,97_26,1.9,Environmental tax revenue,DCCN_IMPAMB1
+500,97_334,1.2,National materials' use accounts,DCCN_FLUMAT
+501,97_366,1.3,Social protection accounts,DCCN_PROTSOC
+502,97_79,1.3,NAMEA air emissions (NACE Rev.1.1),DCCN_CONTIEMATM
+503,97_932,1.0,Energy use accounts,DCCN_PRODENER
+504,97_953,1.1,Environmental protection expenditure,DCCN_SPESAPROTAMB
+505,98_1066,1.0,Productivity measures - Accounts in the 2014 version,DCCN_PRODUTTIVITA_B14
+506,98_1067,1.0,Productivity measures - Accounts in the 2011 version,DCCN_PRODUTTIVITA_B11
+507,98_197,1.3,Productivity measures,DCCN_PRODUTTIVITA
+508,9_951,1.3,Mining and quarrying,DCCV_CAVE_MIN

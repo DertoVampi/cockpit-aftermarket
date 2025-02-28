@@ -97,7 +97,7 @@ def get_metadata(base_url):
         get_url = base_url.rstrip('"') + f'{row["IDDataFlow"]}'
         print(get_url)
         try:
-            response = requests.get(get_url, verify=False, timeout=100)
+            response = requests.get(get_url, verify=False, timeout=30)
             if response.status_code == 200:
                 with open("temp_xml.xml", "wb") as file:
                     file.write(response.content)
@@ -143,7 +143,7 @@ def get_metadata(base_url):
     return df, failed_df
 
 
-base_url = "http://sdmx.istat.it/SDMXWS/rest/availableconstraint/"
+base_url = "http://sdmx.istat.it/SDMXWS/rest/v2/availableconstraint/"
 df, failed_df = get_metadata(base_url)
-# url = "https://sdmx.istat.it/SDMXWS/rest/dataflow/IT1"
+# url = "https://sdmx.istat.it/SDMXWS/rest/v2/dataflow/IT1"
 # df = get_dataflows(url)
