@@ -7,13 +7,15 @@ Created on Tue Mar  4 11:31:36 2025
 import pandas as pd
 import duckdb
 
-conn = duckdb.connect(r"L:\01.Dati\04.Varie\08.Cockpit\cockpit_final.db")
+conn = duckdb.connect(r"L:\01.Dati\04.Varie\08.Cockpit\cockpit_review5.db")
 
 try:
-    
+    conn.execute("CREATE SEQUENCE IF NOT EXISTS seq_idDato START 1;")
+    conn.execute("CREATE SEQUENCE IF NOT EXISTS seq_idValore START 1;")
     conn.execute(
         """
         CREATE TABLE IF NOT EXISTS EventoDim (
+            idDato INTEGER PRIMARY KEY DEFAULT NEXTVAL('seq_idDato'),
             idPipeline INTEGER,
             nomePipeline VARCHAR,
             descPipeline VARCHAR,
@@ -21,10 +23,20 @@ try:
             nomeEvento VARCHAR,
             unita VARCHAR,
             isPercentuale BOOL,
-            PRIMARY KEY(idPipeline, idEvento)
+            UNIQUE(idPipeline,idEvento)
         )
         """
     )
+    
+    conn.execute(
+        """
+        CREATE TABLE IF NOT EXISTS TipoVeicoloDim (
+            idTipoVeicolo INTEGER PRIMARY KEY,
+            nomeTipoVeicolo VARCHAR
+        )
+        """
+    )
+    
 
     conn.execute(
         """
@@ -38,31 +50,27 @@ try:
         )
         """
     )
+    
 
+    
     conn.execute(
         """
         CREATE TABLE IF NOT EXISTS Dati (
-            id INTEGER,
-            idPipeline INTEGER,
-            idEvento INTEGER,
+            idValore INTEGER PRIMARY KEY DEFAULT NEXTVAL('seq_idValore'),
+            idDato INTEGER,
             idData INTEGER,
+            idTipoVeicolo INTEGER DEFAULT 2,
             valore FLOAT,
             latest BOOL,
-            PRIMARY KEY (idPipeline, idEvento, idData),
-            FOREIGN KEY (idPipeline, idEvento) REFERENCES EventoDim(idPipeline, idEvento),
-            FOREIGN KEY (idData) REFERENCES DataDim(idData)
+            FOREIGN KEY (idDato) REFERENCES EventoDim(idDato),
+            FOREIGN KEY (idData) REFERENCES DataDim(idData),
+            FOREIGN KEY (idTipoVeicolo) REFERENCES TipoVeicoloDim(idTipoVeicolo),
+            UNIQUE(idDato, idData, idTipoVeicolo)
         )
         """
     )
   
-    conn.execute(
-        """
-        CREATE TABLE IF NOT EXISTS TipoVeicoloDim (
-            idTipoVeicolo INTEGER PRIMARY KEY,
-            nomeTipoVeicolo VARCHAR
-        )
-        """
-    )
+
 
     # conn.execute(
     #     """
@@ -80,22 +88,22 @@ try:
     #     """
     # )
     # Big mistake: IamEventoDim had to have an eventID, as did EventoDim, otherwise why have I made all of this? Time to reflect on my choices and mistakes.
-    conn.execute(
-        """
-        CREATE TABLE IF NOT EXISTS IamDati (
-            idPipeline INTEGER,
-            idEvento INTEGER,
-            idData INTEGER,
-            idTipoVeicolo INTEGER,
-            valore FLOAT,
-            latest BOOL,
-            PRIMARY KEY (idPipeline, idEvento, idData, idTipoVeicolo),
-            FOREIGN KEY (idPipeline, idEvento) REFERENCES EventoDim(idPipeline, idEvento),
-            FOREIGN KEY (idData) REFERENCES DataDim(idData),
-            FOREIGN KEY (idTipoVeicolo) REFERENCES TipoVeicoloDim(idTipoVeicolo)
-        )
-        """
-    )
+    # conn.execute(
+    #     """
+    #     CREATE TABLE IF NOT EXISTS IamDati (
+    #         idPipeline INTEGER,
+    #         idEvento INTEGER,
+    #         idData INTEGER,
+    #         idTipoVeicolo INTEGER,
+    #         valore FLOAT,
+    #         latest BOOL,
+    #         PRIMARY KEY (idPipeline, idEvento, idData, idTipoVeicolo),
+    #         FOREIGN KEY (idPipeline, idEvento) REFERENCES EventoDim(idPipeline, idEvento),
+    #         FOREIGN KEY (idData) REFERENCES DataDim(idData),
+    #         FOREIGN KEY (idTipoVeicolo) REFERENCES TipoVeicoloDim(idTipoVeicolo)
+    #     )
+    #     """
+    # )
 
     conn.execute(
         """
@@ -138,31 +146,31 @@ except Exception as e:
     pass
     #%%
 
-conn = duckdb.connect(r"L:\01.Dati\04.Varie\08.Cockpit\cockpit_final.db")
+conn = duckdb.connect(r"L:\01.Dati\04.Varie\08.Cockpit\cockpit_review5.db")
 event_dimension_list = [
-    (1, "Istat", "Dati recuperati dal sito ISTAT", 0, "PIL", "Miliardi", 0),
-    (1, "Istat", "Dati recuperati dal sito ISTAT", 1, "CrescitaPIL", "Percentuale", 1),
-    (1, "Istat", "Dati recuperati dal sito ISTAT", 2, "Disoccupazione", "Percentuale", 1),
-    (1, "Istat", "Dati recuperati dal sito ISTAT", 3, "Inflazione", "Percentuale", 1),
-    (1, "Istat", "Dati recuperati dal sito ISTAT", 4, "FiduciaImprese", "Indice", 0),
-    (2, "Bce", "Dati recuperati dalla Banca Centrale Europea", 5, "TassiDiInteresse", "Percentuale", 1),
-    (1, "Istat", "Dati recuperati dal sito ISTAT", 6, "PrezzoBeniEnergetici", "Percentuale", 1),
-    (1, "Istat", "Dati recuperati dal sito ISTAT", 7, "PrezzoCarburanteTrasporti", "Percentuale", 1),
-    (0, "IAM","Dati recuperati dal file IAM", 8, "DeltaPrezzoMedioPuntuale", "Percentuale", 1),
-    (0, "IAM","Dati recuperati dal file IAM", 9, "DeltaPrezzoMedioYtd", "Percentuale", 1),
-    (0, "IAM","Dati recuperati dal file IAM", 10, "DeltaPrezzoMedioRolling", "Percentuale", 1),
-    (0, "IAM","Dati recuperati dal file IAM", 11, "DeltaFatturatoPuntuale", "Percentuale", 1),
-    (0, "IAM","Dati recuperati dal file IAM", 12, "EffettoVolumiPuntuale", "Percentuale", 1),
-    (0, "IAM","Dati recuperati dal file IAM", 13, "EffettoMixCPPuntuale", "Percentuale", 1),
-    (0, "IAM","Dati recuperati dal file IAM", 14, "EffettoPrezziPuntuale", "Percentuale", 1),
-    (0, "IAM","Dati recuperati dal file IAM", 15, "DeltaFatturatoProgressivo", "Percentuale", 1),
-    (0, "IAM","Dati recuperati dal file IAM", 16, "EffettoVolumiProgressivo", "Percentuale", 1),
-    (0, "IAM","Dati recuperati dal file IAM", 17, "EffettoMixCPProgressivo", "Percentuale", 1),
-    (0, "IAM","Dati recuperati dal file IAM", 18, "EffettoPrezziProgressivo", "Percentuale", 1),
-    (0, "IAM","Dati recuperati dal file IAM", 19, "DeltaFatturatoRolling", "Percentuale", 1),
-    (0, "IAM","Dati recuperati dal file IAM", 20, "EffettoVolumiRolling", "Percentuale", 1),
-    (0, "IAM","Dati recuperati dal file IAM", 21, "EffettoMixCPRolling", "Percentuale", 1),
-    (0, "IAM","Dati recuperati dal file IAM", 22, "EffettoPrezziRolling", "Percentuale", 1)
+    (1, "Istat", "Dati recuperati dal sito ISTAT", 1, "PIL", "Miliardi", 0),
+    (1, "Istat", "Dati recuperati dal sito ISTAT", 2, "CrescitaPIL", "Percentuale", 1),
+    (1, "Istat", "Dati recuperati dal sito ISTAT", 3, "Disoccupazione", "Percentuale", 1),
+    (1, "Istat", "Dati recuperati dal sito ISTAT", 4, "Inflazione", "Percentuale", 1),
+    (1, "Istat", "Dati recuperati dal sito ISTAT", 5, "FiduciaImprese", "Indice", 0),
+    (2, "Bce", "Dati recuperati dalla Banca Centrale Europea", 6, "TassiDiInteresse", "Percentuale", 1),
+    (1, "Istat", "Dati recuperati dal sito ISTAT", 7, "PrezzoBeniEnergetici", "Percentuale", 1),
+    (1, "Istat", "Dati recuperati dal sito ISTAT", 8, "PrezzoCarburanteTrasporti", "Percentuale", 1),
+    (0, "IAM","Dati recuperati dal file IAM", 9, "DeltaPrezzoMedioPuntuale", "Percentuale", 1),
+    (0, "IAM","Dati recuperati dal file IAM", 10, "DeltaPrezzoMedioYtd", "Percentuale", 1),
+    (0, "IAM","Dati recuperati dal file IAM", 11, "DeltaPrezzoMedioRolling", "Percentuale", 1),
+    (0, "IAM","Dati recuperati dal file IAM", 12, "DeltaFatturatoRolling", "Percentuale", 1),
+    (0, "IAM","Dati recuperati dal file IAM", 13, "EffettoVolumiRolling", "Percentuale", 1),
+    (0, "IAM","Dati recuperati dal file IAM", 14, "EffettoMixCPRolling", "Percentuale", 1),
+    (0, "IAM","Dati recuperati dal file IAM", 15, "EffettoPrezziRolling", "Percentuale", 1),
+    (0, "IAM","Dati recuperati dal file IAM", 16, "DeltaFatturatoPuntuale", "Percentuale", 1),
+    (0, "IAM","Dati recuperati dal file IAM", 17, "EffettoVolumiPuntuale", "Percentuale", 1),
+    (0, "IAM","Dati recuperati dal file IAM", 18, "EffettoMixCPPuntuale", "Percentuale", 1),
+    (0, "IAM","Dati recuperati dal file IAM", 19, "EffettoPrezziPuntuale", "Percentuale", 1),
+    (0, "IAM","Dati recuperati dal file IAM", 20, "DeltaFatturatoProgressivo", "Percentuale", 1),
+    (0, "IAM","Dati recuperati dal file IAM", 21, "EffettoVolumiProgressivo", "Percentuale", 1),
+    (0, "IAM","Dati recuperati dal file IAM", 22, "EffettoMixCPProgressivo", "Percentuale", 1),
+    (0, "IAM","Dati recuperati dal file IAM", 23, "EffettoPrezziProgressivo", "Percentuale", 1)
     ]
 
 mercato_list = [
@@ -200,7 +208,8 @@ alimentazione_list = [
 ]
 
 type_dimension_list = [("Autovetture", 0),
-                       ("Autocarri", 1)
+                       ("Autocarri", 1),
+                       ("Non applicabile", 2)
                        ]
 
 month_mapping = {
@@ -281,7 +290,7 @@ conn.close()
 
 #%%
 
-conn = duckdb.connect(r"L:\01.Dati\04.Varie\08.Cockpit\cockpit_final.db")
+conn = duckdb.connect(r"L:\01.Dati\04.Varie\08.Cockpit\cockpit_review5.db")
 
 # conn.execute(
 #     """
@@ -293,9 +302,9 @@ conn.execute(
     """
     CREATE VIEW IF NOT EXISTS importBI AS
     SELECT
-        Dati.idPipeline AS idPipeline,
-        Dati.idEvento AS idEvento,
-        Dati.idData AS idData,
+        Dati.idDato AS idDato,
+        Dati.idData AS idData, 
+        Dati.idTipoVeicolo as idTipoVeicolo,
         Dati.valore AS valore,
         DataDim.anno AS anno,
         DataDim.mese AS mese,
@@ -310,7 +319,7 @@ conn.execute(
         Dati.latest AS isLatest
     FROM Dati
     INNER JOIN DataDim ON DataDim.idData = Dati.idData
-    INNER JOIN EventoDim ON EventoDim.idEvento = Dati.idEvento AND EventoDim.idPipeline = Dati.idPipeline
+    INNER JOIN EventoDim ON EventoDim.idDato = Dati.idDato
     """
 )
 
@@ -324,9 +333,10 @@ conn.execute(
     """
     CREATE VIEW IF NOT EXISTS fact_Dati AS
     SELECT
-        Dati.idPipeline AS idPipeline,
-        Dati.idEvento AS idEvento,
+        Dati.idValore as idValore,
+        Dati.idDato as idDato,
         Dati.idData AS idData,
+        Dati.idTipoVeicolo as idTipoVeicolo,
         CAST(Dati.valore AS FLOAT) AS valore,
         Dati.latest AS isLatest
     FROM Dati
@@ -339,19 +349,19 @@ conn.execute(
 #     """
 #     )
 
-conn.execute(
-    """
-    CREATE VIEW IF NOT EXISTS fact_IamDati AS
-    SELECT
-        IamDati.idPipeline AS idPipeline,
-        IamDati.idEvento AS idEvento,
-        IamDati.idData AS idData,
-        IamDati.idTipoVeicolo AS idTipoVeicolo,
-        CAST(IamDati.valore AS FLOAT) AS valore,
-        IamDati.latest AS isLatest
-    FROM IamDati
-    """
-)
+# conn.execute(
+#     """
+#     CREATE VIEW IF NOT EXISTS fact_IamDati AS
+#     SELECT
+#         IamDati.idPipeline AS idPipeline,
+#         IamDati.idEvento AS idEvento,
+#         IamDati.idData AS idData,
+#         IamDati.idTipoVeicolo AS idTipoVeicolo,
+#         CAST(IamDati.valore AS FLOAT) AS valore,
+#         IamDati.latest AS isLatest
+#     FROM IamDati
+#     """
+# )
 
 # conn.execute(
 #     """
@@ -399,6 +409,7 @@ conn.execute(
     """
     CREATE VIEW IF NOT EXISTS dimension_Evento AS
     SELECT
+        EventoDim.idDato,
         EventoDim.idPipeline AS idPipeline,
         EventoDim.nomePipeline AS nomePipeline,
         EventoDim.descPipeline AS descPipeline,
@@ -444,24 +455,7 @@ conn.execute(
     
 )
 
-
 conn.close()
-
-conn = duckdb.connect(r"L:\01.Dati\04.Varie\08.Cockpit\cockpit_final.db")
-
-
-conn.execute(
-    """
-    DELETE FROM IamDati
-    WHERE valore = 'nan'
-    """
-    )
-
-
-conn.close()
-
-
-
 # import duckdb
 # import pandas as pd
 
@@ -470,7 +464,7 @@ conn.close()
 # query = "SELECT * FROM ImportBI"
 # df = conn.execute(query).fetchdf()
 
-# conn.close()
+# 
 
 # df
 

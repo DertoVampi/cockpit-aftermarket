@@ -458,6 +458,17 @@ event_dict = {
     "CarburanteTrasporti":[1,7]
 }
 
+event_dict = {
+    "PIL":1,
+    "CrescitaPIL":2,
+    "Disoccupazione":3,
+    "Inflazione":4,
+    "FiduciaImprese":5,
+    "TassiDiInteresse":6,
+    "BeniEnergetici":7,
+    "CarburanteTrasporti":8
+}
+
 quarter_mapping = {
         "Q1":"03",
         "Q2":"06",
@@ -506,15 +517,31 @@ month_mapping = {
     "10": "Q4", "11": "Q4", "12": "Q4"
 }
 
-iam_mapping = {
-    "Delta % Prezzo Medio Puntuale":"8",
-    "Delta % Prezzo Medio YTD":"9",
-    "Delta % Prezzo Medio Rolling":"10",
-    "Delta Fatturato":"11",
-    "Effetto Volumi":"12",
-    "Effetto Mix CP":"13",
-    "Effetto Prezzi":"14"
-    
+iam_price_mapping = {
+    "Delta % Prezzo Medio Puntuale":"9",
+    "Delta % Prezzo Medio YTD":"10",
+    "Delta % Prezzo Medio Rolling":"11",
+    }
+
+iam_rolling_mapping = {
+    "Delta Fatturato":12,
+    "Effetto Volumi":13,
+    "Effetto Mix CP":14,
+    "Effetto Prezzi":15
+    }
+
+iam_puntuale_mapping = {
+    "Delta Fatturato":16,
+    "Effetto Volumi":17,
+    "Effetto Mix CP":18,
+    "Effetto Prezzi":19,
+    }
+
+iam_progressivo_mapping = {   
+    "Delta Fatturato":20,
+    "Effetto Volumi":21,
+    "Effetto Mix CP":22,
+    "Effetto Prezzi":23
     }
 
 month_name_mapping = {
@@ -678,7 +705,7 @@ try:
 except Exception as e:
     print(e)
 
-def prepare_iam_price_df(df, iam_mapping=iam_mapping):
+def prepare_iam_price_df(df, iam_mapping=iam_price_mapping):
     focus_month = dt.date.today().month-2 if dt.date.today().month != 1 else 12
     focus_year = dt.date.today().year if dt.date.today().month != 1 else dt.date.today().year-1
     df = df.drop(["Unnamed: 0", "Unnamed: 3", "Unnamed: 2", "Gennaio 2025"] , axis=1)
@@ -686,11 +713,11 @@ def prepare_iam_price_df(df, iam_mapping=iam_mapping):
     df["idData"] = str(focus_year)+str(focus_month).zfill(2)+"01"
     df["idTipoVeicolo"] = range(len(df))
     df = df.melt(id_vars=["idData","idTipoVeicolo"], value_vars=["Delta % Prezzo Medio Puntuale","Delta % Prezzo Medio YTD","Delta % Prezzo Medio Rolling"], var_name="nomeEvento", value_name='Valore')
-    df["idEvento"] = df["nomeEvento"].map(iam_mapping)
+    df["idDato"] = df["nomeEvento"].map(iam_mapping)
     df["idPipeline"] = 0
     return df
 
-def prepare_iam_df(df, vehicle_type, iam_mapping=iam_mapping, month_name_mapping=month_name_mapping):
+def prepare_iam_df(df, vehicle_type, iam_mapping, month_name_mapping=month_name_mapping):
     df = df.drop(["Unnamed: 0", "Unnamed: 1", "Unnamed: 15"], axis=1)
     df = df.rename(columns={"Unnamed: 2":"nomeEvento"})
 
@@ -703,7 +730,7 @@ def prepare_iam_df(df, vehicle_type, iam_mapping=iam_mapping, month_name_mapping
     df = df[df["Mese"] != "Unnamed: 3"]
     df["idPipeline"] = 0
     df["Anno"] = [dt.date.today().year-1 if i < january_index else dt.date.today().year for i in range(len(df))]
-    df["idEvento"] = df["nomeEvento"].map(iam_mapping)
+    df["idDato"] = df["nomeEvento"].map(iam_mapping)
     df["idData"] = df["Anno"].astype(str)+df["numMese"].astype(str)+"01"
     if vehicle_type.casefold() == "car":
         df["idTipoVeicolo"] = 0
@@ -711,7 +738,7 @@ def prepare_iam_df(df, vehicle_type, iam_mapping=iam_mapping, month_name_mapping
         df["idTipoVeicolo"] = 1
     return df
 
-def prepare_iam_df_prog(df, vehicle_type, iam_mapping=iam_mapping, month_name_mapping=month_name_mapping):
+def prepare_iam_df_prog(df, vehicle_type, iam_mapping, month_name_mapping=month_name_mapping):
     df = df.drop(["Unnamed: 0", "Unnamed: 1", "Progressivo"], axis=1)
     df = df.rename(columns={"Unnamed: 2":"nomeEvento"})
     df["nomeEvento"] = df["nomeEvento"].replace("∆ Fatturato", "Delta Fatturato")
@@ -724,7 +751,7 @@ def prepare_iam_df_prog(df, vehicle_type, iam_mapping=iam_mapping, month_name_ma
     df = df[~pd.isna(df["Valore"])]
     df["idPipeline"] = 0
     df["Anno"] = [dt.date.today().year-1 if i < january_index else dt.date.today().year for i in range(len(df))]
-    df["idEvento"] = df["nomeEvento"].map(iam_mapping)
+    df["idDato"] = df["nomeEvento"].map(iam_mapping)
     df["idData"] = df["Anno"].astype(str)+df["numMese"].astype(str)+"01"
     if vehicle_type.casefold() == "car":
         df["idTipoVeicolo"] = 0
@@ -744,7 +771,7 @@ def prepare_registration_df(df, fuel_mapping=fuel_mapping, type_mapping=type_map
 def prepare_df(df, event_mapping=event_dict):
     df_event = df["Evento"].iloc[0]
     prepped_df = df[["idData", "Valore"]].copy()
-    prepped_df["idPipeline"], prepped_df["idEvento"] = event_mapping[df_event]
+    prepped_df["idDato"] = event_mapping[df_event]
     return prepped_df
 
 prepped_pil_df = prepare_df(m_pil_df)
@@ -756,12 +783,12 @@ prepped_interest_rates_df = prepare_df(m_interest_rates_df)
 prepped_energy_price_df = prepare_df(m_energy_price_df)
 prepped_energy_fuel_df = prepare_df(m_energy_fuel_df)
 prepped_iam_price_df = prepare_iam_price_df(m_iam_price_df)
-prepped_iam_car_df = prepare_iam_df(m_iam_car_df, vehicle_type="car")
-prepped_iam_truck_df = prepare_iam_df(m_iam_truck_df, vehicle_type="truck")
-prepped_iam_puntuale_car_df = prepare_iam_df_prog(m_iam_puntuale_car_df, vehicle_type="car")
-prepped_iam_puntuale_truck_df = prepare_iam_df_prog(m_iam_puntuale_truck_df, vehicle_type="truck")
-prepped_iam_progressivo_car_df = prepare_iam_df_prog(m_iam_progressivo_car_df, vehicle_type="car")
-prepped_iam_progressivo_truck_df = prepare_iam_df_prog(m_iam_progressivo_truck_df, vehicle_type="truck")
+prepped_iam_car_df = prepare_iam_df(m_iam_car_df, vehicle_type="car", iam_mapping=iam_rolling_mapping)
+prepped_iam_truck_df = prepare_iam_df(m_iam_truck_df, vehicle_type="truck", iam_mapping=iam_rolling_mapping)
+prepped_iam_puntuale_car_df = prepare_iam_df_prog(m_iam_puntuale_car_df, vehicle_type="car", iam_mapping=iam_puntuale_mapping)
+prepped_iam_puntuale_truck_df = prepare_iam_df_prog(m_iam_puntuale_truck_df, vehicle_type="truck", iam_mapping=iam_puntuale_mapping)
+prepped_iam_progressivo_car_df = prepare_iam_df_prog(m_iam_progressivo_car_df, vehicle_type="car", iam_mapping=iam_progressivo_mapping)
+prepped_iam_progressivo_truck_df = prepare_iam_df_prog(m_iam_progressivo_truck_df, vehicle_type="truck", iam_mapping=iam_progressivo_mapping)
 prepped_reg_df = prepare_registration_df(m_reg_df)
 
 df_list = [
@@ -785,64 +812,63 @@ iam_df_list = [
     prepped_iam_progressivo_truck_df
     ]
  
-conn = duckdb.connect(r"L:\01.Dati\04.Varie\08.Cockpit\cockpit_final.db")
+conn = duckdb.connect(r"L:\01.Dati\04.Varie\08.Cockpit\cockpit_review5.db")
 
 for df in df_list:
     for index, row in df.iterrows():
         conn.execute(
             """
-            INSERT INTO Dati (idPipeline, idEvento, idData, valore, latest)
-            VALUES (?, ?, ?, ?, 0)
-            ON CONFLICT (idPipeline, idEvento, idData)
+            INSERT INTO Dati (idDato, idData, valore, latest)
+            VALUES (?, ?, ?, 0)
+            ON CONFLICT (idDato, idData, idTipoVeicolo)
             DO UPDATE SET valore = EXCLUDED.valore
             """,
-            (row['idPipeline'], row['idEvento'], row['idData'], row['Valore'])
+            (row['idDato'], row['idData'], row['Valore'])
         )
         
-conn.execute(
-    """
-    WITH latestData AS (
-        SELECT
-        idPipeline,
-        idEvento,
-        MAX(idData) as idDataMAX
-        FROM Dati 
-        GROUP BY idPipeline, idEvento
-        )
-    UPDATE Dati
-    SET latest = CASE
-                    WHEN(idPipeline, idEvento, idData) IN (SELECT idPipeline, idEvento, idDataMAX FROM LatestData) THEN 1
-                    ELSE 0
-                END;
-    """
-    )
+# conn.execute(
+#     """
+#     WITH latestData AS (
+#         SELECT
+#         idDato,
+#         idTipoVeicolo,
+#         MAX(idData) as idDataMAX
+#         FROM Dati 
+#         GROUP BY idDato, idTipoVeicolo
+#         )
+#     UPDATE Dati
+#     SET latest = CASE
+#                     WHEN(idDato, idData) IN (SELECT idDato, idTipoVeicolo, idDataMAX FROM LatestData) THEN 1
+#                     ELSE 0
+#                 END;
+#     """
+#     )
 
 for df in iam_df_list:
     for index, row in df.iterrows():
         conn.execute(
             """
-            INSERT INTO IamDati (idPipeline, idEvento, idData, idTipoVeicolo, valore, latest)
-            VALUES(?,?,?,?,?,0)
-            ON CONFLICT(idPipeline, idEvento, idData, idTipoVeicolo)
+            INSERT INTO Dati (idDato, idData, idTipoVeicolo, valore, latest)
+            VALUES(?,?,?,?,0)
+            ON CONFLICT(idDato, idData, idTipoVeicolo)
             DO UPDATE SET valore = EXCLUDED.valore
             """,
-            (row['idPipeline'], row['idEvento'], row['idData'], row['idTipoVeicolo'], row['Valore'])
+            (row['idDato'], row['idData'], row['idTipoVeicolo'], row['Valore'])
             )
 
 conn.execute(
     """
     WITH latestData AS (
         SELECT
-        idPipeline,
-        idEvento,
+        idDato,
         idTipoVeicolo,
         MAX(idData) as idDataMAX
-        FROM IamDati 
-        GROUP BY idPipeline, idEvento, idTipoVeicolo
+        FROM Dati 
+        GROUP BY idDato, idTipoVeicolo
         )
-    UPDATE IamDati
+    UPDATE Dati
     SET latest = CASE
-                    WHEN(idPipeline, idEvento, idTipoVeicolo, idData) IN (SELECT idPipeline, idEvento, idTipoVeicolo, idDataMAX FROM LatestData) THEN 1
+                    WHEN(idDato, idTipoVeicolo, idData) IN (SELECT idDato, idTipoVeicolo, idDataMAX FROM LatestData) THEN 1
                     ELSE 0
                 END;
     """
@@ -880,7 +906,7 @@ conn.execute(
 conn.close()
 
 
-conn = duckdb.connect(r"L:\01.Dati\04.Varie\08.Cockpit\cockpit_final.db")
+conn = duckdb.connect(r"L:\01.Dati\04.Varie\08.Cockpit\cockpit_review5.db")
 
 def clean_and_convert_data(df):
     for col in df.columns:
@@ -902,21 +928,21 @@ query_fact = "SELECT * FROM fact_Dati"
 query_evento = "SELECT * FROM dimension_Evento"
 query_data = "SELECT * FROM dimension_Data"
 query_tipo_veicolo = "SELECT * FROM dimension_TipoVeicolo"
-query_fact_iam = "SELECT * FROM fact_IamDati"
+# query_fact_iam = "SELECT * FROM fact_IamDati"
 query_fact_reg = "SELECT * FROM fact_Immatricolazioni"
 query_mercato = "SELECT * FROM dimension_Mercato"
 query_alimentazione = "SELECT * FROM dimension_Alimentazione"
 
 # Esportazione delle viste in file CSV
-export_to_csv(query_fact, r"L:\01.Dati\04.Varie\08.Cockpit\fact_Dati.csv")
-export_to_csv(query_evento, r"L:\01.Dati\04.Varie\08.Cockpit\dimension_Evento.csv")
-export_to_csv(query_data, r"L:\01.Dati\04.Varie\08.Cockpit\dimension_Data.csv")
-export_to_csv(query_tipo_veicolo, r"L:\01.Dati\04.Varie\08.Cockpit\dimension_TipoVeicolo.csv")
-export_to_csv(query_fact_iam, r"L:\01.Dati\04.Varie\08.Cockpit\fact_IamDati.csv")
-export_to_csv(query_fact_reg, r"L:\01.Dati\04.Varie\08.Cockpit\fact_ImmDati.csv")
-export_to_csv(query_mercato, r"L:\01.Dati\04.Varie\08.Cockpit\dimension_Mercato.csv")
-export_to_csv(query_alimentazione, r"L:\01.Dati\04.Varie\08.Cockpit\dimension_Alimentazione.csv")
-shutil.copy(r"L:\07.Automobile_in_Cifre\2024\StatisticheItalia\parco\CapA\Aggiornati (e caricati)\05TipoAnnoImmat.xlsx", r"L:\01.Dati\04.Varie\08.Cockpit\parco.xlsx")
+export_to_csv(query_fact, r"C:\Users\dimartino\OneDrive - anfia.it\cockpit_anfia\csv_database\fact_Dati.csv")
+export_to_csv(query_evento, r"C:\Users\dimartino\OneDrive - anfia.it\cockpit_anfia\csv_database\dimension_Evento.csv")
+export_to_csv(query_data, r"C:\Users\dimartino\OneDrive - anfia.it\cockpit_anfia\csv_database\dimension_Data.csv")
+export_to_csv(query_tipo_veicolo, r"C:\Users\dimartino\OneDrive - anfia.it\cockpit_anfia\csv_database\dimension_TipoVeicolo.csv")
+# export_to_csv(query_fact_iam, r"L:\01.Dati\04.Varie\08.Cockpit\fact_IamDati.csv")
+export_to_csv(query_fact_reg, r"C:\Users\dimartino\OneDrive - anfia.it\cockpit_anfia\csv_database\fact_ImmDati.csv")
+export_to_csv(query_mercato, r"C:\Users\dimartino\OneDrive - anfia.it\cockpit_anfia\csv_database\dimension_Mercato.csv")
+export_to_csv(query_alimentazione, r"C:\Users\dimartino\OneDrive - anfia.it\cockpit_anfia\csv_database\dimension_Alimentazione.csv")
+shutil.copy(r"L:\07.Automobile_in_Cifre\2024\StatisticheItalia\parco\CapA\Aggiornati (e caricati)\05TipoAnnoImmat.xlsx", r"C:\Users\dimartino\OneDrive - anfia.it\cockpit_anfia\csv_database\parco.xlsx")
 
 # Chiudi la connessione
 conn.close()
