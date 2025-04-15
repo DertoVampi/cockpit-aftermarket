@@ -10,7 +10,7 @@ import sys
 import subprocess
 
 # Install packages if missing, useful with pyinstaller and making .exes
-required_packages = ["pyarrow", "fastparquet", "azure.identity", "duckdb", "openpyxl", "webdriver_manager", "ecbdata", "selenium", "pyautogui", "shutil", "urllib", "screeninfo", "pandas","threading","sqlalchemy", "pyodbc", "pandas", "ftplib", "pywinauto", "xlsxwriter", "welcome_derto"]
+required_packages = ["azure.identity", "imfp", "pyarrow", "fastparquet", "azure.identity", "duckdb", "openpyxl", "webdriver_manager", "ecbdata", "selenium", "pyautogui", "shutil", "urllib", "screeninfo", "pandas","threading","sqlalchemy", "pyodbc", "pandas", "ftplib", "pywinauto", "xlsxwriter", "welcome_derto"]
 
 def install_missing_packages(packages):
     for package in packages:
@@ -54,8 +54,10 @@ import os
 from ecbdata import ecbdata
 import duckdb
 import urllib
+import imfp
 import shutil
 
+# The query extracts from ANFIA's SQL database
 query = '''
 DECLARE @end_period AS DATE = DATEFROMPARTS(YEAR(GETDATE()), MONTH(GETDATE()), 1)
 DECLARE @start_period DATE = CASE
@@ -242,7 +244,7 @@ def open_link(driver, istat_link):
 def click_xpath_button(driver, xpath, button_name=None):
     time.sleep(1)
     try:
-        button = WebDriverWait(driver, 10).until(
+        button = WebDriverWait(driver, 5).until(
             EC.element_to_be_clickable((By.XPATH, f"{xpath}"))
         )
         button.click()
@@ -363,6 +365,9 @@ def get_df(skiprows=7):
     else:
         return None
 
+current_month = dt.date.today().month
+focus_year = dt.date.today().year if current_month != 1 else dt.date.today().year-1
+focus_month = dt.date.today().month-1 if current_month != 1 else 12
 
 stop = False
 while stop == False:
@@ -424,6 +429,17 @@ while stop == False:
         remove_download_popup()
         # Tassi d'interesse BCE
         interest_rates_df = ecbdata.get_series('FM.B.U2.EUR.4F.KR.MRR_FR.LEV')[['TITLE', 'TIME_PERIOD', 'OBS_VALUE']]
+        # Prezzi materie prime IMF
+        focus_commodities = ["pcopp", "pgaso", "pgold", "psilver", "poilapsp", "piorecr", "plith", "palum", "pcoba", "preodom"]
+        focus_commodities = [x.upper() for x in focus_commodities]
+        commodity_df = imfp.imf_dataset(
+            database_id="PCPS",
+            freq=["M"],
+            unit_measure = "USD",
+            commodity = focus_commodities,
+            start_year=2000,
+            end_year=focus_year)
+        # commodity_df = commodity_df[commodity_df["commodity"].isin(focus_commodities)]
         # Costi energia
         link = "https://esploradati.istat.it/databrowser/#/it/dw/categories/IT1,Z0400PRI,1.0/PRI_HARCONEU/DCSP_IPCA1B2015/IT1,168_760_DF_DCSP_IPCA1B2015_2,1.0"
         open_link(driver, link)
@@ -466,8 +482,33 @@ event_dict = {
     "FiduciaImprese":5,
     "TassiDiInteresse":6,
     "BeniEnergetici":7,
-    "CarburanteTrasporti":8
+    "CarburanteTrasporti":8,
+    "PrezzoOro":154,
+    "PrezzoRame":155,
+    "PrezzoArgento":156,
+    "PrezzoGasolio":157,
+    "PrezzoPetrolio":158,
+    "PrezzoAlluminio":187,
+    "PrezzoGasNaturale":188,
+    "PrezzoFerroGrezzo":189,
+    "PrezzoLitio":190,
+    "PrezzoCobalto":191,
+    "PrezzoTerreRare":192
 }
+
+ifm_mapping = {
+    "PCOPP":"PrezzoRame",
+    "PGASO":"PrezzoGasolio",
+    "PGOLD":"PrezzoOro",
+    "PSILVER":"PrezzoArgento",
+    "POILAPSP":"PrezzoPetrolio",
+    "PALUM":"PrezzoAlluminio",
+    "PNGAS":"PrezzoGasNaturale",
+    "PREODOM":"PrezzoTerreRare",
+    "PCOBA":"PrezzoCobalto",
+    "PLITH":"PrezzoLitio",
+    "PIORECR":"PrezzoFerroGrezzo"
+    }
 
 quarter_mapping = {
         "Q1":"03",
@@ -558,6 +599,21 @@ month_name_mapping = {
     "novembre":"11",
     "dicembre":"12"
     }
+
+month_number_mapping = {
+    1: "gennaio",
+    2: "febbraio",
+    3: "marzo",
+    4: "aprile",
+    5: "maggio",
+    6: "giugno",
+    7: "luglio",
+    8: "agosto",
+    9: "settembre",
+    10: "ottobre",
+    11: "novembre",
+    12: "dicembre"
+}
 
 def istat_manipulate_quarter_df(df, event=event_dict, mapping=quarter_mapping):
     if df is pil_df:
@@ -672,12 +728,24 @@ def manipulate_energy_df(df):
     return price_df, fuel_df
 
 def extract_iam(excel_file_path, sheet_name, skiprows):
-    df = pd.read_excel(excel_file_path, sheet_name, skiprows=skiprows)
+    if os.path.exists(excel_file_path):
+        df = pd.read_excel(excel_file_path, sheet_name, skiprows=skiprows)
+    else:
+        print("Dati IAM del mese scorso non trovati. Continuo senza aggiornare i dati IAM.")
+        df = None
+    return df
+
+def manipulate_ifm_df(df):
+    df.columns = df.columns.str.strip()
+    df = df.rename(columns={'time_period':'Data', 'obs_value':'Valore'})
+    df[['Anno', 'Mese']] = df['Data'].str.split("-", expand=True)
+    df["idData"] = df['Anno'].astype(str)+df['Mese'].astype(str)+"01"
+    df["Valore"] = round(df["Valore"].astype(float), 2)
+    df["Evento"] = df["commodity"].map(ifm_mapping).astype(str)
     return df
     
-current_month = dt.date.today().month
-
-excel_file_path = r"P:\Sala\Report IAM Trend Italia Distributori IAM- Gennaio 2025.xlsx"
+focus_month_name = month_number_mapping[focus_month].capitalize()
+excel_file_path = fr"L:\01.Dati\04.Varie\08.Cockpit\IAM\Report IAM Trend Italia Distributori IAM- {focus_month_name} {focus_year}.xlsx"
 m_pil_df = istat_manipulate_quarter_df(pil_df)
 m_pil_growth_df = istat_manipulate_quarter_df(pil_growth_df)
 m_unemployment_df = istat_manipulate_monthly_df(unemployment_df)
@@ -693,6 +761,7 @@ m_iam_puntuale_car_df = extract_iam(excel_file_path, "Auto-Puntuale MERCATO", sk
 m_iam_puntuale_truck_df = extract_iam(excel_file_path, "Truck-Puntuale MERCATO", skiprows=34)
 m_iam_progressivo_car_df = extract_iam(excel_file_path, "Auto-Progressivo MERCATO", skiprows=33)
 m_iam_progressivo_truck_df = extract_iam(excel_file_path, "Truck-Progressivo MERCATO", skiprows=33)
+m_commodity_df = manipulate_ifm_df(commodity_df)
 
 try:
     user, password = get_login_info_from_config()
@@ -706,9 +775,11 @@ except Exception as e:
     print(e)
 
 def prepare_iam_price_df(df, iam_mapping=iam_price_mapping):
+    if df is None:
+        return df
     focus_month = dt.date.today().month-2 if dt.date.today().month != 1 else 12
     focus_year = dt.date.today().year if dt.date.today().month != 1 else dt.date.today().year-1
-    df = df.drop(["Unnamed: 0", "Unnamed: 3", "Unnamed: 2", "Gennaio 2025"] , axis=1)
+    df = df.drop(["Unnamed: 0", "Unnamed: 3", "Unnamed: 2", f"{focus_month_name} {focus_year}"] , axis=1)
     df = df.iloc[:2]
     df["idData"] = str(focus_year)+str(focus_month).zfill(2)+"01"
     df["idTipoVeicolo"] = range(len(df))
@@ -718,6 +789,8 @@ def prepare_iam_price_df(df, iam_mapping=iam_price_mapping):
     return df
 
 def prepare_iam_df(df, vehicle_type, iam_mapping, month_name_mapping=month_name_mapping):
+    if df is None:
+        return df
     df = df.drop(["Unnamed: 0", "Unnamed: 1", "Unnamed: 15"], axis=1)
     df = df.rename(columns={"Unnamed: 2":"nomeEvento"})
 
@@ -739,6 +812,8 @@ def prepare_iam_df(df, vehicle_type, iam_mapping, month_name_mapping=month_name_
     return df
 
 def prepare_iam_df_prog(df, vehicle_type, iam_mapping, month_name_mapping=month_name_mapping):
+    if df is None:
+        return df
     df = df.drop(["Unnamed: 0", "Unnamed: 1", "Progressivo"], axis=1)
     df = df.rename(columns={"Unnamed: 2":"nomeEvento"})
     df["nomeEvento"] = df["nomeEvento"].replace("∆ Fatturato", "Delta Fatturato")
@@ -746,11 +821,10 @@ def prepare_iam_df_prog(df, vehicle_type, iam_mapping, month_name_mapping=month_
     ordered_cols = df_columns[1:13]
     df = df.melt(id_vars="nomeEvento", value_vars=ordered_cols, var_name="Mese", value_name="Valore")
     df["numMese"] = df["Mese"].str.casefold().map(month_name_mapping)
-    january_index = df[df["numMese"] == "01"].index[0]
     df = df[df["Mese"] != "Unnamed: 3"]
     df = df[~pd.isna(df["Valore"])]
     df["idPipeline"] = 0
-    df["Anno"] = [dt.date.today().year-1 if i < january_index else dt.date.today().year for i in range(len(df))]
+    df["Anno"] = dt.date.today().year-1 if dt.date.today().month == 1 else dt.date.today().year
     df["idDato"] = df["nomeEvento"].map(iam_mapping)
     df["idData"] = df["Anno"].astype(str)+df["numMese"].astype(str)+"01"
     if vehicle_type.casefold() == "car":
@@ -760,6 +834,8 @@ def prepare_iam_df_prog(df, vehicle_type, iam_mapping, month_name_mapping=month_
     return df
 
 def prepare_registration_df(df, fuel_mapping=fuel_mapping, type_mapping=type_mapping):
+    if df is None:
+        return df
     df = df.drop(["DATA_IMMATRICOLAZIONE"], axis=1)
     df = df.rename(columns={"CATEGORIA_VEICOLO":"nomeMercato", "ALIMENTAZIONE":"nomeAlimentazione"})
     df["nomeMercato"] = df["nomeMercato"].fillna("SCONOSCIUTO")
@@ -769,9 +845,18 @@ def prepare_registration_df(df, fuel_mapping=fuel_mapping, type_mapping=type_map
     
 
 def prepare_df(df, event_mapping=event_dict):
+    if df is None:
+        return df
     df_event = df["Evento"].iloc[0]
     prepped_df = df[["idData", "Valore"]].copy()
     prepped_df["idDato"] = event_mapping[df_event]
+    return prepped_df
+
+def prepare_ifm_df(df, event_mapping=event_dict):
+    if df is None:
+        return df
+    prepped_df = df[["idData", "Valore", "Evento"]].copy()
+    prepped_df["idDato"] = df["Evento"].map(event_mapping)
     return prepped_df
 
 prepped_pil_df = prepare_df(m_pil_df)
@@ -790,6 +875,7 @@ prepped_iam_puntuale_truck_df = prepare_iam_df_prog(m_iam_puntuale_truck_df, veh
 prepped_iam_progressivo_car_df = prepare_iam_df_prog(m_iam_progressivo_car_df, vehicle_type="car", iam_mapping=iam_progressivo_mapping)
 prepped_iam_progressivo_truck_df = prepare_iam_df_prog(m_iam_progressivo_truck_df, vehicle_type="truck", iam_mapping=iam_progressivo_mapping)
 prepped_reg_df = prepare_registration_df(m_reg_df)
+prepped_commodity_df = prepare_ifm_df(m_commodity_df)
 
 df_list = [
     prepped_pil_df,
@@ -799,7 +885,8 @@ df_list = [
     prepped_trust_df,
     prepped_interest_rates_df,
     prepped_energy_price_df,
-    prepped_energy_fuel_df
+    prepped_energy_fuel_df,
+    prepped_commodity_df
     ]   
    
 iam_df_list = [
@@ -811,50 +898,36 @@ iam_df_list = [
     prepped_iam_progressivo_car_df,
     prepped_iam_progressivo_truck_df
     ]
+
+df_list = [prepped_commodity_df]
  
-conn = duckdb.connect(r"L:\01.Dati\04.Varie\08.Cockpit\cockpit_review5.db")
+conn = duckdb.connect(r"C:\Users\dimartino\OneDrive - anfia.it\cockpit_anfia\pbix\cockpit.db")
 
 for df in df_list:
-    for index, row in df.iterrows():
-        conn.execute(
-            """
-            INSERT INTO Dati (idDato, idData, valore, latest)
-            VALUES (?, ?, ?, 0)
-            ON CONFLICT (idDato, idData, idTipoVeicolo)
-            DO UPDATE SET valore = EXCLUDED.valore
-            """,
-            (row['idDato'], row['idData'], row['Valore'])
-        )
-        
-# conn.execute(
-#     """
-#     WITH latestData AS (
-#         SELECT
-#         idDato,
-#         idTipoVeicolo,
-#         MAX(idData) as idDataMAX
-#         FROM Dati 
-#         GROUP BY idDato, idTipoVeicolo
-#         )
-#     UPDATE Dati
-#     SET latest = CASE
-#                     WHEN(idDato, idData) IN (SELECT idDato, idTipoVeicolo, idDataMAX FROM LatestData) THEN 1
-#                     ELSE 0
-#                 END;
-#     """
-#     )
+    if df is not None:
+        for index, row in df.iterrows():
+            conn.execute(
+                """
+                INSERT INTO Dati (idDato, idData, valore, latest)
+                VALUES (?, ?, ?, 0)
+                ON CONFLICT (idDato, idData, idTipoVeicolo)
+                DO UPDATE SET valore = EXCLUDED.valore
+                """,
+                (row['idDato'], row['idData'], row['Valore'])
+            )
 
 for df in iam_df_list:
-    for index, row in df.iterrows():
-        conn.execute(
-            """
-            INSERT INTO Dati (idDato, idData, idTipoVeicolo, valore, latest)
-            VALUES(?,?,?,?,0)
-            ON CONFLICT(idDato, idData, idTipoVeicolo)
-            DO UPDATE SET valore = EXCLUDED.valore
-            """,
-            (row['idDato'], row['idData'], row['idTipoVeicolo'], row['Valore'])
-            )
+    if df is not None:
+        for index, row in df.iterrows():
+            conn.execute(
+                """
+                INSERT INTO Dati (idDato, idData, idTipoVeicolo, valore, latest)
+                VALUES(?,?,?,?,0)
+                ON CONFLICT(idDato, idData, idTipoVeicolo)
+                DO UPDATE SET valore = EXCLUDED.valore
+                """,
+                (row['idDato'], row['idData'], row['idTipoVeicolo'], row['Valore'])
+                )
 
 conn.execute(
     """
@@ -906,7 +979,7 @@ conn.execute(
 conn.close()
 
 
-conn = duckdb.connect(r"L:\01.Dati\04.Varie\08.Cockpit\cockpit_review5.db")
+conn = duckdb.connect(r"C:\Users\dimartino\OneDrive - anfia.it\cockpit_anfia\pbix\cockpit.db")
 
 def clean_and_convert_data(df):
     for col in df.columns:
@@ -920,6 +993,10 @@ def export_to_csv(query, file_path):
         df = clean_and_convert_data(df)
         df.to_csv(file_path, encoding="latin-1", index=False)
         print(f"File {file_path} creato con successo.")
+        file_name = os.path.basename(file_path)
+        dst_directory = r"L:\01.Dati\04.Varie\08.Cockpit\csv_database"
+        dst_file = os.path.join(dst_directory, file_name)
+        shutil.copy(file_path, dst_file)
     except Exception as e:
         print(f"Errore durante l'esportazione del file {file_path}: {e}")
 
@@ -938,13 +1015,13 @@ export_to_csv(query_fact, r"C:\Users\dimartino\OneDrive - anfia.it\cockpit_anfia
 export_to_csv(query_evento, r"C:\Users\dimartino\OneDrive - anfia.it\cockpit_anfia\csv_database\dimension_Evento.csv")
 export_to_csv(query_data, r"C:\Users\dimartino\OneDrive - anfia.it\cockpit_anfia\csv_database\dimension_Data.csv")
 export_to_csv(query_tipo_veicolo, r"C:\Users\dimartino\OneDrive - anfia.it\cockpit_anfia\csv_database\dimension_TipoVeicolo.csv")
-# export_to_csv(query_fact_iam, r"L:\01.Dati\04.Varie\08.Cockpit\fact_IamDati.csv")
 export_to_csv(query_fact_reg, r"C:\Users\dimartino\OneDrive - anfia.it\cockpit_anfia\csv_database\fact_ImmDati.csv")
 export_to_csv(query_mercato, r"C:\Users\dimartino\OneDrive - anfia.it\cockpit_anfia\csv_database\dimension_Mercato.csv")
 export_to_csv(query_alimentazione, r"C:\Users\dimartino\OneDrive - anfia.it\cockpit_anfia\csv_database\dimension_Alimentazione.csv")
-shutil.copy(r"L:\07.Automobile_in_Cifre\2024\StatisticheItalia\parco\CapA\Aggiornati (e caricati)\05TipoAnnoImmat.xlsx", r"C:\Users\dimartino\OneDrive - anfia.it\cockpit_anfia\csv_database\parco.xlsx")
-
-# Chiudi la connessione
 conn.close()
+shutil.copy(r"L:\07.Automobile_in_Cifre\2024\StatisticheItalia\parco\CapA\Aggiornati (e caricati)\05TipoAnnoImmat.xlsx", r"C:\Users\dimartino\OneDrive - anfia.it\cockpit_anfia\csv_database\parco.xlsx")
+shutil.copy(r"C:\Users\dimartino\OneDrive - anfia.it\cockpit_anfia\pbix\cockpit.db", r"L:\01.Dati\04.Varie\08.Cockpit\Report_cockpit\cockpit.db")
+shutil.copy(r"C:\Users\dimartino\OneDrive - anfia.it\cockpit_anfia\pbix\cockpitpbi.pbix", r"L:\01.Dati\04.Varie\08.Cockpit\Report_cockpit\cockpitpbi.pbix")
+
 
     

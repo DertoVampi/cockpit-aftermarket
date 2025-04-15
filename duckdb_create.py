@@ -7,7 +7,7 @@ Created on Tue Mar  4 11:31:36 2025
 import pandas as pd
 import duckdb
 
-conn = duckdb.connect(r"L:\01.Dati\04.Varie\08.Cockpit\cockpit_review5.db")
+conn = duckdb.connect(r"C:\Users\dimartino\OneDrive - anfia.it\cockpit_anfia\pbix\cockpit.db")
 
 try:
     conn.execute("CREATE SEQUENCE IF NOT EXISTS seq_idDato START 1;")
@@ -146,7 +146,7 @@ except Exception as e:
     pass
     #%%
 
-conn = duckdb.connect(r"L:\01.Dati\04.Varie\08.Cockpit\cockpit_review5.db")
+conn = duckdb.connect(r"C:\Users\dimartino\OneDrive - anfia.it\cockpit_anfia\pbix\cockpit.db")
 event_dimension_list = [
     (1, "Istat", "Dati recuperati dal sito ISTAT", 1, "PIL", "Miliardi", 0),
     (1, "Istat", "Dati recuperati dal sito ISTAT", 2, "CrescitaPIL", "Percentuale", 1),
@@ -170,7 +170,18 @@ event_dimension_list = [
     (0, "IAM","Dati recuperati dal file IAM", 20, "DeltaFatturatoProgressivo", "Percentuale", 1),
     (0, "IAM","Dati recuperati dal file IAM", 21, "EffettoVolumiProgressivo", "Percentuale", 1),
     (0, "IAM","Dati recuperati dal file IAM", 22, "EffettoMixCPProgressivo", "Percentuale", 1),
-    (0, "IAM","Dati recuperati dal file IAM", 23, "EffettoPrezziProgressivo", "Percentuale", 1)
+    (0, "IAM","Dati recuperati dal file IAM", 23, "EffettoPrezziProgressivo", "Percentuale", 1),
+    (3, "IMF", "Dati recuperati dalle API International Monetary Fund", 24, "PrezzoOro", "Miliardi", 0),
+    (3, "IMF", "Dati recuperati dalle API International Monetary Fund", 25, "PrezzoRame", "Miliardi", 0),
+    (3, "IMF", "Dati recuperati dalle API International Monetary Fund", 26, "PrezzoArgento", "Miliardi", 0),
+    (3, "IMF", "Dati recuperati dalle API International Monetary Fund", 27, "PrezzoGasolio", "Miliardi", 0),
+    (3, "IMF", "Dati recuperati dalle API International Monetary Fund", 28, "PrezzoPetrolio", "Miliardi", 0),
+    (3, "IMF", "Dati recuperati dalle API International Monetary Fund", 29, "PrezzoAlluminio", "Miliardi", 0),
+    (3, "IMF", "Dati recuperati dalle API International Monetary Fund", 30, "PrezzoGasNaturale", "Miliardi", 0),
+    (3, "IMF", "Dati recuperati dalle API International Monetary Fund", 31, "PrezzoFerroGrezzo", "Miliardi", 0),
+    (3, "IMF", "Dati recuperati dalle API International Monetary Fund", 32, "PrezzoLitio", "Miliardi", 0),
+    (3, "IMF", "Dati recuperati dalle API International Monetary Fund", 33, "PrezzoCobalto", "Miliardi", 0),
+    (3, "IMF", "Dati recuperati dalle API International Monetary Fund", 34, "PrezzoTerreRare", "Miliardi", 0)
     ]
 
 mercato_list = [
@@ -290,7 +301,7 @@ conn.close()
 
 #%%
 
-conn = duckdb.connect(r"L:\01.Dati\04.Varie\08.Cockpit\cockpit_review5.db")
+conn = duckdb.connect(r"C:\Users\dimartino\OneDrive - anfia.it\cockpit_anfia\pbix\cockpit.db")
 
 # conn.execute(
 #     """
