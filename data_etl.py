@@ -10,7 +10,7 @@ import sys
 import subprocess
 
 # Install packages if missing, useful with pyinstaller and making .exes
-required_packages = ["azure.identity", "loginserviceanfia","imfp", "pyarrow", "fastparquet", "azure.identity", "duckdb", "openpyxl", "webdriver_manager", "ecbdata", "selenium", "pyautogui", "shutil", "urllib", "screeninfo", "pandas","threading","sqlalchemy", "pyodbc", "pandas", "ftplib", "pywinauto", "xlsxwriter", "welcome_derto"]
+required_packages = ["azure.identity", "pyistat", "loginserviceanfia","imfp", "pyarrow", "fastparquet", "azure.identity", "duckdb", "openpyxl", "webdriver_manager", "ecbdata", "selenium", "pyautogui", "shutil", "urllib", "screeninfo", "pandas","threading","sqlalchemy", "pyodbc", "pandas", "ftplib", "pywinauto", "xlsxwriter", "welcome_derto"]
 
 def install_missing_packages(packages):
     for package in packages:
@@ -57,6 +57,7 @@ import duckdb
 import urllib
 import imfp
 import shutil
+from pyistat import get, search
 
 # The query extracts from ANFIA's SQL Server database
 query = '''
