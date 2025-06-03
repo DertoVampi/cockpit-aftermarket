@@ -181,7 +181,14 @@ event_dimension_list = [
     (3, "IMF", "Dati recuperati dalle API International Monetary Fund", 31, "PrezzoFerroGrezzo", "Miliardi", 0),
     (3, "IMF", "Dati recuperati dalle API International Monetary Fund", 32, "PrezzoLitio", "Miliardi", 0),
     (3, "IMF", "Dati recuperati dalle API International Monetary Fund", 33, "PrezzoCobalto", "Miliardi", 0),
-    (3, "IMF", "Dati recuperati dalle API International Monetary Fund", 34, "PrezzoTerreRare", "Miliardi", 0)
+    (3, "IMF", "Dati recuperati dalle API International Monetary Fund", 34, "PrezzoTerreRare", "Miliardi", 0),
+    (4, "Drewry", "Dati del WCI (World Container Index) recuperati manualmente dal sito Drewry", 35, "TotaleIndiceWCI", "Dollari", 0),
+    (4, "Drewry", "Dati del WCI (World Container Index) recuperati manualmente dal sito Drewry", 36, "RotterdamIndiceWCI", "Dollari", 0),
+    (4, "Drewry", "Dati del WCI (World Container Index) recuperati manualmente dal sito Drewry", 37, "LosAngelesIndiceWCI", "Dollari", 0),
+    (4, "Drewry", "Dati del WCI (World Container Index) recuperati manualmente dal sito Drewry", 38, "GenovaIndiceWCI", "Dollari", 0),
+    (4, "Drewry", "Dati del WCI (World Container Index) recuperati manualmente dal sito Drewry", 39, "NewYorkIndiceWCI", "Dollari", 0)
+    
+    
     ]
 
 mercato_list = [
