@@ -173,3 +173,5 @@ cython_debug/
 config.txt
 .deprecated
 
+*.xlsx
+
