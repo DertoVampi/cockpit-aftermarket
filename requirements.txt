@@ -1,0 +1,15 @@
+duckdb==1.2.1
+ecbdata==0.1.1
+imfp==1.2.1
+istatapi==1.0.0
+numpy==2.3.1
+pandas==2.3.1
+pyautogui==0.9.54
+pyistat==1.0.3
+pywinauto==0.6.9
+Requests==2.32.4
+screeninfo==0.8.1
+selenium==4.34.2
+SQLAlchemy==2.0.38
+urllib3==2.5.0
+webdriver_manager==4.0.2
