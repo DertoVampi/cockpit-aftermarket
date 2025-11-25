@@ -1,100 +1,14 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Fri Feb 28 14:49:12 2025
-
-@author: DiMartino
-"""
 import duckdb
 import pandas as pd
-import numpy as np
-import time
 from sqlalchemy import create_engine, text
 import datetime as dt
 import os
 from ecbdata import ecbdata
-import urllib
 import imfp
-import shutil
 from pyistat import get
+from utilities import login
 
-
-def login_row(lines, lookup_string):  # Create config.txt to store secrets.
-    for line in lines:
-        if lookup_string in line:
-            target_line = line.strip()
-            break
-    else:
-        return None
-    cleaned_line = target_line.strip().split(" ")[1]
-    return cleaned_line
-
-
-def get_login_info_from_config(config_file):  # Get login info from config.
-    """
-
-    Returns variables used for logins.
-    -------
-    How to use it:
-    remember that in case you do not need to call all the variables, you can call the variables using
-    only the needed variables and adding *rest for the others. Example: if you only need
-    user and password, you can call user, password, *rest = get_login_info_from_config().
-
-    """
-    # if not os.path.exists(config_file):
-    #     build_config()
-    with open(config_file, "r") as file:
-        lines = file.readlines()
-        username = login_row(lines, "username:").strip()
-        password = login_row(lines, "password:").strip()
-        server = login_row(lines, "server:").strip()
-        database = login_row(lines, "database:").strip()
-        ftp_server_address = login_row(lines, "ftp_server_address:").strip()
-        ftp_user = login_row(lines, "ftp_user:").strip()
-        ftp_password = login_row(lines, "ftp_password:").strip()
-        tenant_id = login_row(lines, "tenant_id:").strip()
-        app_id = login_row(lines, "app_id:").strip()
-        secret = login_row(lines, "random_id:").strip()
-        return (
-            username,
-            password,
-            server,
-            database,
-            ftp_server_address,
-            ftp_user,
-            ftp_password,
-            tenant_id,
-            app_id,
-            secret,
-        )
-
-
-def build_connection_string(config_file):
-    (
-        username,
-        password,
-        server,
-        database,
-        ftp_server_address,
-        ftp_user,
-        ftp_password,
-        tenant_id,
-        app_id,
-        secret,
-    ) = get_login_info_from_config(config_file)
-    app_id_encoded = urllib.parse.quote_plus(app_id)
-    secret_encoded = urllib.parse.quote_plus(secret)
-    connection_string = (
-        f"mssql+pyodbc://{app_id_encoded}:{secret_encoded}@"
-        f"{server}/{database}?"
-        f"driver=ODBC+Driver+17+for+SQL+Server&"
-        f"Authentication=ActiveDirectoryServicePrincipal&"
-        f"TenantID={tenant_id}&"
-        f"Encrypt=yes&"
-        f"TrustServerCertificate=no"
-    )
-    return connection_string
-
-
+### BLOCCO 1: RECUPERO DEI DATI
 # The query extracts from ANFIA's SQL Server database
 query = """
 DECLARE @end_period AS DATE = DATEFROMPARTS(YEAR(GETDATE()), MONTH(GETDATE()), 1)
@@ -173,7 +87,7 @@ FROM leggeri)
 
 
 config_file = r"C:\Users\dimartino\AppData\Local\pysecrets\pyconfig.txt"
-connection_string = build_connection_string(config_file)
+connection_string = login.build_connection_string(config_file)
 
 # Creazione della stringa di connessione per SQLAlchemy
 
@@ -223,20 +137,31 @@ trust_df = get.get_data(
 interest_rates_df = ecbdata.get_series("FM.B.U2.EUR.4F.KR.MRR_FR.LEV")[
     ["TITLE", "TIME_PERIOD", "OBS_VALUE"]
 ]
-# Prezzi materie prime IMF - TEMPORANEAMENTE GESTITO CON CSV SCARICATO DAL SITO IMF - DATASET PCPS
-# focus_commodities = ["pcopp", "pgaso", "pgold", "psilver", "poilapsp", "piorecr", "plith", "palum", "pcoba", "preodom"]
-# focus_commodities = [x.upper() for x in focus_commodities]
-# imfp.set_imf_app_name("ANFIA")
-# commodity_df = imfp.imf_dataset(
-#     database_id="PCPS",
-#     freq=["M"],
-#     unit_measure = "USD",
-#     start_year=2020,
-#     commodity="palum",
-#     end_year=focus_year)
-# commodity_df = commodity_df[commodity_df["commodity"].isin(focus_commodities)]
-csv_file = r"C:\Users\dimartino\Downloads\dataset_2025-10-24T13_17_03.009871102Z_DEFAULT_INTEGRATION_IMF.RES_PCPS_9.0.0.csv"
-commodity_df = pd.read_csv(csv_file)
+# Prezzi materie prime IMF
+focus_commodities = [
+    "pcopp",
+    "pgaso",
+    "pgold",
+    "psilver",
+    "poilapsp",
+    "piorecr",
+    "plith",
+    "palum",
+    "pcoba",
+    "preodom",
+]
+focus_commodities = [x.upper() for x in focus_commodities]
+imfp.set_imf_app_name("ANFIA")
+commodity_df = imfp.imf_dataset(
+    database_id="PCPS",
+    freq=["M"],
+    data_transformation="USD",
+    start_year=2020,
+    end_year=2025,
+)
+commodity_df = commodity_df[commodity_df["commodity"].isin(focus_commodities)]
+# csv_file = r"C:\Users\dimartino\Downloads\dataset_2025-10-24T13_17_03.009871102Z_DEFAULT_INTEGRATION_IMF.RES_PCPS_9.0.0.csv"
+# commodity_df = pd.read_csv(csv_file)
 # Costi energia
 fuel_energy_df = get.get_data(
     "168_760_DF_DCSP_IPCA1B2015_2",
@@ -250,8 +175,9 @@ energy_df = get.get_data(
     force_url=True,
     timeout=120,
 )
+### FINE BLOCCO UNO
 
-
+### BLOCCO DUE: VARIABILI E CODICI
 event_dict = {
     "PIL": [1, 0],
     "CrescitaPIL": [1, 1],
@@ -412,7 +338,10 @@ month_number_mapping = {
     12: "dicembre",
 }
 
+### FINE BLOCCO DUE
 
+
+### INIZIO BLOCCO TRE: MANIPOLAZIONE DEI DATAFRAME
 def extract_date(df):
     df["idData"] = ""
     for index, row in df.iterrows():
@@ -508,14 +437,13 @@ def extract_iam(excel_file_path, sheet_name, skiprows):
 
 def manipulate_ifm_df(df):
     df.columns = df.columns.str.strip().str.lower()
-    df = df.rename(columns={"indicator.id": "commodity"})  # Temporary with CSV
     df = df.rename(columns={"time_period": "Data", "obs_value": "Valore"})
     df[["Anno", "Mese"]] = df["Data"].str.split(
         "-M", expand=True
-    )  # Care for this SPLIT, on the CSV date was 2015-M01
+    )  # Care for this SPLIT, on the CSV/new APIs date was 2015-M01
     df["idData"] = df["Anno"].astype(str) + df["Mese"].astype(str) + "01"
     df["Valore"] = round(df["Valore"].astype(float), 2)
-    df["Evento"] = df["commodity"].map(ifm_mapping).astype(str)
+    df["Evento"] = df["indicator"].map(ifm_mapping).astype(str)
     return df
 
 
@@ -570,8 +498,10 @@ try:
         m_reg_df = pd.DataFrame(result.fetchall(), columns=result.keys())
 except Exception as e:
     print(e)
+### FINE BLOCCO TRE
 
 
+### INIZIO BLOCCO QUATTRO: PREPARAZIONE DEI DATAFRAME
 def prepare_iam_price_df(df, iam_mapping=iam_price_mapping):
     if df is None:
         return df
@@ -781,7 +711,9 @@ prepped_iam_progressivo_truck_df = prepare_iam_df_prog(
 prepped_reg_df = prepare_registration_df(m_reg_df)
 prepped_commodity_df = prepare_ifm_df(m_commodity_df)
 prepped_wci_df = prepare_wci_df(m_wci_df)
+### FINE BLOCCO QUATTRO
 
+### BLOCCO CINQUE: INSERIMENTO DEI DATAFRAME NEL DATABASE
 df_list = [
     prepped_pil_df,
     prepped_pil_growth_df,
@@ -928,8 +860,10 @@ conn.close()
 conn = duckdb.connect(
     r"C:\Users\dimartino\OneDrive - anfia.it\cockpit_anfia\pbix\cockpit.db"
 )
+### FINE BLOCCO CINQUE
 
 
+### BLOCCO SEI: CREAZIONE DEI CSV PER POWERBI
 def clean_and_convert_data(df):
     for col in df.columns:
         df[col] = (
@@ -990,7 +924,7 @@ export_to_csv(
     r"L:\01.Dati\04.Varie\08.Cockpit\csv_database\dimension_Alimentazione.parquet",
 )
 conn.close()
-
+### FINE BLOCCO SEI
 
 # # # ZONA EMERGENZE: Se il report esce dopo due mesi, cancellare i record più nuovi e far rigirare il sistema che applica isLatest.
 # # # ATTENZIONE: far girare SOLO la logica che applica latest. Non il resto, o tutto verrà riaggiornato al dopo agosto.
